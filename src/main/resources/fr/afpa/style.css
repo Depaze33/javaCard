@@ -8,16 +8,14 @@
     -fx-font-size: 16px;
 }
 
-
+/* ======= NAV ======== */
 #leftPane{
     -fx-background-color: #cec0c0bd;
 }
 
-
-
-
-#centerPane{
-    -fx-background-color: #CDBFBF;
+#btnNavPane{
+    -fx-pref-height: 480;
+    -fx-alignment: center;
 }
 
 .navBtn{
@@ -25,4 +23,25 @@
     -fx-text-fill: white;
     -fx-pref-width: 220;
     -fx-pref-height: 80;
+}
+
+
+
+/* ======= CONTENT ======== */
+
+#centerPane{
+    -fx-background-color: #CDBFBF;
+    -fx-alignment: top-center;
+    -fx-padding: 10 10 10 10;
+}
+
+
+
+.titleBtn{
+    -fx-background-color: #31111D;
+    -fx-text-fill: white;
+    -fx-pref-width: 220;
+    -fx-pref-height: 80;
+    -fx-font-size: 20px;
+
 }
