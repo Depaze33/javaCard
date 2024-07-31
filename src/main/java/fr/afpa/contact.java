@@ -2,6 +2,8 @@ package fr.afpa;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -17,11 +19,12 @@ public class Contact implements Serializable {
     private String mailAdress;
     private String postalAdress;
     private String github;
-    private int id;
+    private String id;
     private static int count; 
     public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo, 
             String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github
             ) {
+                this.generateID();
         this.lastName = lastName;
         this.firstName = firstName;
         this.gender = gender;
@@ -33,8 +36,8 @@ public class Contact implements Serializable {
         //.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$");
         this.postalAdress = postalAdress;
         this.github = github;
-        this.id = Contact.count;
-        Contact.count++;
+        this.id = this.generateID();
+        // Contact.count++;
         
     }
     public String getLastName() {
@@ -97,10 +100,10 @@ public class Contact implements Serializable {
     public void setGithub(String github) {
         this.github = github;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     @Override
@@ -110,7 +113,20 @@ public class Contact implements Serializable {
                 + ", professionalNumber=" + professionalNumber + ", mailAdress=" + mailAdress + ", postalAdress="
                 + postalAdress + ", github=" + github + ", id=" + id + "]";
     }
+    
+public String generateID(){
+LocalDateTime date = LocalDateTime.now();
+final String Pattern = "yyyy-MM-dd-HH:mm:ss.SSS";
+final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Pattern);
 
+ return date.format(formatter)+ this.firstName + this.lastName;
+
+
+
+
+ 
+
+}
     
 
 

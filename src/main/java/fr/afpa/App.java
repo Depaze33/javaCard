@@ -31,48 +31,61 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void main(final String[] args) throws ClassNotFoundException, IOException {
 
         // Adding a sample contact to the list
-        contacts.add(new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
-                "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
-                "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry"));
-        contacts.add(new Contact("PAUL", "Geraldine", "F", LocalDate.of(1980, 6, 10),
-                "Gege", "0656232524", "0556324148", "geraldine.paul@gmail.com",
-                "50 Rue du Puche 33520 ", "https://github.com/PaulGeraldine"));
-        contacts.add(new Contact("ZARYA", "Emy", "N-B", LocalDate.of(2002, 5, 20),
-                "Em", "0656232524", "0556324148", "Emy.du33@gmail.com",
-                "50 Rue du Puche 33520 ", "https://github.com/Emy33"));
+        // contacts.add(new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
+        // "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
+        // "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry"));
+        // contacts.add(new Contact("PAUL", "Geraldine", "F", LocalDate.of(1980, 6, 10),
+        // "Gege", "0656232524", "0556324148", "geraldine.paul@gmail.com",
+        // "50 Rue du Puche 33520 ", "https://github.com/PaulGeraldine"));
+        // contacts.add(new Contact("ZARYA", "Emy", "N-B", LocalDate.of(2002, 5, 20),
+        // "Em", "0656232524", "0556324148", "Emy.du33@gmail.com",
+        // "50 Rue du Puche 33520 ", "https://github.com/Emy33"));
 
-        System.out.println(contacts);
+        // System.out.println(contacts);
 
         // Serializing to demonstrate functionality
-        final ContactBinaryManager manager = new ContactBinaryManager(null);
 
-        try {
-            // Sauvegarde des contact
-            String filePath = "contact.ser";
-            manager.saveList(filePath, contacts);
+        // final ContactBinaryManager manager = new ContactBinaryManager(null);
 
-            // Chargement contact vérification
+        // try {
+        // // Sauvegarde des contact
+        // String filePath = "contacts.ser";
+        // manager.saveList(filePath, contacts);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // // Chargement contact vérification
 
-        try {
-            // Save contact
-            String filePath = "contact.ser";
-            manager.save(filePath, (new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
-                    "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
-                    "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry")));
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
-            // Charge contact to vérification
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void serializerMethode() {
+        // final ContactBinaryManager manager = new ContactBinaryManager(null);
 
+        // try {
+        // // Sauvegarde des contact
+        // String filePath = "contacts.ser";
+        // manager.saveList(filePath, contacts);
+
+        // // Chargement contact vérification
+
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void deserializerMethode() throws IOException, ClassNotFoundException {
+        final ContactBinaryManager<Contact> manager = new ContactBinaryManager(manager);
+
+        // Chargement de la liste des contacts
+        String filePath = "contacts.ser";
+        ArrayList<Contact> loadedContacts = manager.loadList(filePath);
+        System.out.println("Loaded contacts: " + loadedContacts);
     }
 }

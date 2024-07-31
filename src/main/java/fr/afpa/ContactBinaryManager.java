@@ -9,10 +9,6 @@ import java.util.ArrayList;
 
 public class ContactBinaryManager<T> implements Serializer<Contact>, Deserializer<Contact> {
 
-    
-
-   
-
     public ContactBinaryManager(Object object) {
     }
 
@@ -34,28 +30,22 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
     }
 
     @Override
-    public void save(String filePath, Contact objectToSave) throws IOException {
-        // try (FileOutputStream fileOut = new FileOutputStream(filePath);
-        // ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-        // out.writeObject(objectToSave);
-        // System.out.println("Serialized data is saved in " + filePath);
-        // } catch (IOException exception) {
-        // System.out.println("Error during serialization: " + exception.getMessage());
-        // throw exception;
-        // }
+    public void save(String filePath, Contact objectToSave) {
+        throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
+
     }
 
     @Override
     public ArrayList<Contact> loadList(String filePath) {
         try (FileInputStream fileIn = new FileInputStream(filePath);
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
             return (ArrayList<Contact>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error during deserialization: " + e.getMessage());
             try {
                 throw e;
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
+
                 e1.printStackTrace();
             }
         }
@@ -64,8 +54,8 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
 
     @Override
     public Contact load(String filePath) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'load'");
+        throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
+
     }
 
 }
