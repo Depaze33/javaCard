@@ -1,25 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox fx:id="leftPane" minHeight="250.0" minWidth="250.0" stylesheets="style.css" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="coffe" prefWidth="159.0" text="☕" />
             <VBox id="btnNavPane" prefWidth="250.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" styleClass="navBtn" text="Contact list 📑" />
-                  <Button mnemonicParsing="false" styleClass="navBtn" text="Add contact 👤➕" />
+                  <Button mnemonicParsing="false" text="Contact list 📑">
+                     <styleClass>
+                        <String fx:value="navBtn" />
+                        <String fx:value="btn" />
+                     </styleClass></Button>
+                  <Button mnemonicParsing="false" text="Add contact 👤➕">
+                     <styleClass>
+                        <String fx:value="navBtn" />
+                        <String fx:value="btn" />
+                     </styleClass></Button>
                </children>
             </VBox>
          </children></VBox>
    </left>
    <center>
-      <VBox fx:id="centerPane" BorderPane.alignment="CENTER">
+      <VBox fx:id="centerPane" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" styleClass="titleBtn" text="CONTACTS" />
-         </children></VBox>
+            <HBox fx:id="delExportBtns" spacing="7.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Delete ❌">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="delBtn" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" text="JSON 📄">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="jsonBtn" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" text="VCF 📇">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="vcfBtn" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+            <TextField />
+            <GridPane fx:id="gridContactsList" hgap="5.0">
+              <columnConstraints>
+                  <ColumnConstraints fx:id="gridContactsListZero" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" text="JSON 📄" GridPane.columnIndex="5">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="jsonBtn" />
+                     </styleClass>
+                  </Button>
+                  <CheckBox mnemonicParsing="false">
+                     <padding>
+                        <Insets left="5.0" right="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="mainGridCheckbox" />
+                        <String fx:value="btn" />
+                     </styleClass>
+                  </CheckBox>
+                  <Button mnemonicParsing="false" text="VCF 📇" GridPane.columnIndex="6">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="vcfBtn" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Delete ❌" GridPane.columnIndex="4">
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="btn" />
+                        <String fx:value="delBtn" />
+                     </styleClass>
+                  </Button>
+                  <Label text="Prénom Nom" GridPane.columnIndex="1">
+                     <styleClass>
+                        <String fx:value="mainGridTextElement" />
+                        <String fx:value="mainGridTextName" />
+                     </styleClass>
+                  </Label>
+                  <Label styleClass="mainGridTextElement" text="email@email.fr" GridPane.columnIndex="2" />
+                  <Label styleClass="mainGridTextElement" text="0606060606" GridPane.columnIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
    </center>
 </BorderPane>
