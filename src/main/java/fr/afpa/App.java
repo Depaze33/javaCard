@@ -7,13 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
-/**
- * JavaFX App
- */
+import fr.afpa.Controller.ContactBinaryManager;
+
 public class App extends Application {
 
     private static Scene scene;
+    private static ArrayList<Contact> contacts = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,8 +33,24 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+    @SuppressWarnings("rawtypes")
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+        // Adding a sample contact to the list
+        contacts.add(new Contact("Michel", "Henry", "M", LocalDate.of(1965, 5, 25),
+                "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
+                "23 Rue des Poules 33150 Cenon", "https://github.com/Depaze33", "MH"));
 
-}
+        // Serializing and deserializing to demonstrate functionality
+        ContactBinaryManager manager = new ContactBinaryManager(null);
+
+        String filePath = "contact.ser";
+
+        try {
+            // Save the first contact
+            manager.save(filePath, contacts.get(0));
+            System.out.println("Contact saved successfully.");
+        launch();
+    }catch (IOException e) {
+        System.err.println("Error during serialization/deserialization: " + e.getMessage());
+        e.printStackTrace();
+}}}
