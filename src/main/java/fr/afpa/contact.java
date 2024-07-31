@@ -17,10 +17,11 @@ public class Contact implements Serializable {
     private String mailAdress;
     private String postalAdress;
     private String github;
-    private String id;
+    private int id;
+    private static int count; 
     public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo, 
-            String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github,
-            String id) {
+            String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github
+            ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.gender = gender;
@@ -29,9 +30,12 @@ public class Contact implements Serializable {
         this.privateNumber = privateNumber;
         this.professionalNumber = professionalNumber;
         this.mailAdress = mailAdress;
+        //.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$");
         this.postalAdress = postalAdress;
         this.github = github;
-        this.id = id;
+        this.id = Contact.count;
+        Contact.count++;
+        
     }
     public String getLastName() {
         return lastName;
@@ -93,10 +97,10 @@ public class Contact implements Serializable {
     public void setGithub(String github) {
         this.github = github;
     }
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     @Override

@@ -1,9 +1,9 @@
-package fr.afpa.Controller;
+package fr.afpa;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface SerialisationInterface<T> {
+public interface Serializer<T> {
 void saveList(String filePath, ArrayList<T> objectToSave) throws IOException;
 
     
