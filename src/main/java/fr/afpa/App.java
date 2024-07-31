@@ -47,7 +47,7 @@ public class App extends Application {
 
         System.out.println(contacts);
 
-        // Serializing and deserializing to demonstrate functionality
+        // Serializing to demonstrate functionality
         final ContactBinaryManager manager = new ContactBinaryManager(null);
 
         try {
@@ -55,20 +55,20 @@ public class App extends Application {
             String filePath = "contact.ser";
             manager.saveList(filePath, contacts);
 
-            // Chargement du contact pour vérification
+            // Chargement contact vérification
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            // Sauvegarde du contact
+            // Save contact
             String filePath = "contact.ser";
             manager.save(filePath, (new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
                     "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
                     "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry")));
 
-            // Chargement du contact pour vérification
+            // Charge contact to vérification
 
         } catch (IOException e) {
             e.printStackTrace();

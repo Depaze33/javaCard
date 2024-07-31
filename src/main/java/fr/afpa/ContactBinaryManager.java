@@ -7,14 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class ContactBinaryManager implements Serializer<Contact> {
+public class ContactBinaryManager<T> implements Serializer<Contact>, Deserializer<Contact> {
 
     
 
    
 
     public ContactBinaryManager(Object object) {
-        //TODO Auto-generated constructor stub
     }
 
     /**
@@ -44,6 +43,29 @@ public class ContactBinaryManager implements Serializer<Contact> {
         // System.out.println("Error during serialization: " + exception.getMessage());
         // throw exception;
         // }
+    }
+
+    @Override
+    public ArrayList<Contact> loadList(String filePath) {
+        try (FileInputStream fileIn = new FileInputStream(filePath);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            return (ArrayList<Contact>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error during deserialization: " + e.getMessage());
+            try {
+                throw e;
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Contact load(String filePath) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'load'");
     }
 
 }
