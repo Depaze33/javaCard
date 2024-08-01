@@ -32,6 +32,7 @@ public class App extends Application {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
+    //Declaration object
     public static void main(final String[] args) throws ClassNotFoundException, IOException {
 
         contacts.add(new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
@@ -53,12 +54,12 @@ App.deserializerMethod();
         // Serializing to demonstrate functionality
 
     }
-
+//Methode to Serialization
     public static void serializerMethode() {
         final ContactBinaryManager manager = new ContactBinaryManager();
 
         try {
-        // Sauvegarde des contact
+        // Save contact
         String filePath = "contacts.ser";
         manager.saveList(filePath, contacts);
 
@@ -70,7 +71,7 @@ App.deserializerMethod();
     }
 
    
-        // Chargement de la liste des contacts
+        //liste des contacts
         public static void deserializerMethod() throws IOException, ClassNotFoundException {
             ContactBinaryManager manager = new ContactBinaryManager();
             String filePath = "contacts.ser";

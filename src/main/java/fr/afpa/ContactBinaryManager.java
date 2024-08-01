@@ -17,6 +17,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
      * @param filePath
      * @param objectToSave
      */
+    ////Methode serialize contact list
     @Override
     public void saveList(String filePath, ArrayList<Contact> objectToSave) throws IOException {
         try (FileOutputStream fileOut = new FileOutputStream(filePath);
@@ -28,13 +29,18 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
             throw e;
         }
     }
-
+//Methode Deserialize just one contact 
     @Override
     public void save(String filePath, Contact objectToSave) {
         throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
 
     }
-
+/**
+     * 
+     * @param filePath
+     * 
+     */ 
+    //Methode Deserialize contact list
     @Override
     public ArrayList<Contact> loadList(String filePath) {
         try (FileInputStream fileIn = new FileInputStream(filePath);
@@ -51,7 +57,9 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
         }
         return null;
     }
+ 
 
+     // Methode Deserialisation just one contact
     @Override
     public Contact load(String filePath) {
         throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
