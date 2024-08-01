@@ -1,0 +1,7 @@
+fr\afpa\contact.class
+fr\afpa\NavController.class
+module-info.class
+fr\afpa\App.class
+fr\afpa\ContactListController.class
+fr\afpa\PrimaryController.class
+fr\afpa\SecondaryController.class

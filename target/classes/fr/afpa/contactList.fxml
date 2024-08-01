@@ -13,48 +13,28 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
-   <left>
-      <VBox fx:id="leftPane" minHeight="250.0" minWidth="250.0" stylesheets="style.css" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="coffe" prefWidth="159.0" text="☕" />
-            <VBox id="btnNavPane" prefWidth="250.0" spacing="20.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Contact list 📑">
-                     <styleClass>
-                        <String fx:value="navBtn" />
-                        <String fx:value="btn" />
-                     </styleClass></Button>
-                  <Button mnemonicParsing="false" text="Add contact 👤➕">
-                     <styleClass>
-                        <String fx:value="navBtn" />
-                        <String fx:value="btn" />
-                     </styleClass></Button>
-               </children>
-            </VBox>
-         </children></VBox>
-   </left>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.ContactListController">
    <center>
       <VBox fx:id="centerPane" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" styleClass="titleBtn" text="CONTACTS" />
             <HBox fx:id="delExportBtns" spacing="7.0">
                <children>
-                  <Button mnemonicParsing="false" text="Delete ❌">
+                  <Button disable="true" mnemonicParsing="false" text="Delete ❌">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="delBtn" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" text="JSON 📄">
+                  <Button disable="true" mnemonicParsing="false" text="JSON 📄">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="jsonBtn" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" text="VCF 📇">
+                  <Button disable="true" mnemonicParsing="false" text="VCF 📇">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
@@ -63,10 +43,9 @@
                   </Button>
                </children>
             </HBox>
-            <TextField />
-            <GridPane fx:id="gridContactsList" hgap="5.0">
+            <GridPane fx:id="gridContactList" hgap="5.0" vgap="5.0">
               <columnConstraints>
-                  <ColumnConstraints fx:id="gridContactsListZero" />
+                  <ColumnConstraints />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,50 +54,64 @@
                 <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
                 <RowConstraints />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="JSON 📄" GridPane.columnIndex="5">
+                  <Button mnemonicParsing="false" text="JSON 📄" GridPane.columnIndex="5" GridPane.rowIndex="1">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="jsonBtn" />
                      </styleClass>
                   </Button>
-                  <CheckBox mnemonicParsing="false">
+                  <CheckBox mnemonicParsing="false" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                      <padding>
-                        <Insets left="5.0" right="10.0" />
+                        <Insets left="2.0" right="10.0" />
                      </padding>
                      <styleClass>
                         <String fx:value="mainGridCheckbox" />
                         <String fx:value="btn" />
                      </styleClass>
                   </CheckBox>
-                  <Button mnemonicParsing="false" text="VCF 📇" GridPane.columnIndex="6">
+                  <Button mnemonicParsing="false" text="VCF 📇" GridPane.columnIndex="6" GridPane.rowIndex="1">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="vcfBtn" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" text="Delete ❌" GridPane.columnIndex="4">
+                  <Button mnemonicParsing="false" text="Delete ❌" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="delBtn" />
                      </styleClass>
                   </Button>
-                  <Label text="Prénom Nom" GridPane.columnIndex="1">
+                  <Label text="Prénom Nom" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <styleClass>
                         <String fx:value="mainGridTextElement" />
                         <String fx:value="mainGridTextName" />
                      </styleClass>
                   </Label>
-                  <Label styleClass="mainGridTextElement" text="email@email.fr" GridPane.columnIndex="2" />
-                  <Label styleClass="mainGridTextElement" text="0606060606" GridPane.columnIndex="3" />
+                  <Label styleClass="mainGridTextElement" text="email@email.fr" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label styleClass="mainGridTextElement" text="0606060606" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="search" promptText="🔍" GridPane.columnSpan="4">
+                     <GridPane.margin>
+                        <Insets bottom="20.0" />
+                     </GridPane.margin></TextField>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </GridPane>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
+   <left>
+      <fx:include source="nav.fxml" />
+   </left>
 </BorderPane>

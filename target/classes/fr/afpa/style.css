@@ -14,6 +14,12 @@
     -fx-cursor: hand;
 }
 
+.btn:disabled{
+    -fx-cursor: null;
+    -fx-background-color: #6b6b6b;
+    -fx-text-fill: rgb(32, 32, 32);
+}
+
 /* ======= NAV ======== */
 #leftPane{
     -fx-background-color: -fx-bgLeft;
@@ -104,4 +110,14 @@
 
 .mainGridTextName{
     -fx-font-weight: bold;
+}
+
+.search .scroll-pane {
+    -fx-background-color: transparent;
+}
+.search .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.search .scroll-pane .content{
+    -fx-background-color: transparent;
 }
