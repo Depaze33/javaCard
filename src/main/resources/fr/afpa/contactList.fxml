@@ -47,7 +47,7 @@
               <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints />
                 <ColumnConstraints />
@@ -66,9 +66,6 @@
                      </styleClass>
                   </Button>
                   <CheckBox mnemonicParsing="false" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                     <padding>
-                        <Insets left="2.0" right="10.0" />
-                     </padding>
                      <styleClass>
                         <String fx:value="mainGridCheckbox" />
                         <String fx:value="btn" />

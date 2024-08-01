@@ -32,7 +32,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
 //Methode Deserialize just one contact 
     @Override
     public void save(String filePath, Contact objectToSave) {
-        throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
+        throw new UnsupportedOperationException("unsused method");
 
     }
 /**
@@ -62,7 +62,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
      // Methode Deserialisation just one contact
     @Override
     public Contact load(String filePath) {
-        throw new UnsupportedOperationException("Pas besoin de cette méthode pour le moment");
+        throw new UnsupportedOperationException("unused method");
 
     }
 

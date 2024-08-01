@@ -20,7 +20,7 @@ public class Contact implements Serializable {
     private String postalAdress;
     private String github;
     private String id;
-    private static int count; 
+    
     public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo, 
             String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github
             ) {

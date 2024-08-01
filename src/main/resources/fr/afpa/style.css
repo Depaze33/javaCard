@@ -104,6 +104,10 @@
     
 }
 
+.mainGridCheckbox{
+    -fx-padding: 0 5 0 2;
+}
+
 .mainGridTextElement{
     -fx-text-fill: #6D4646;
 }
