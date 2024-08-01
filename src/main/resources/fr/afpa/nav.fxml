@@ -10,13 +10,13 @@
       <Label fx:id="coffe" alignment="CENTER" prefWidth="159.0" style="-fx-font-size: 30;" text="☕" />
       <VBox id="btnNavPane" prefWidth="250.0" spacing="20.0">
          <children>
-            <Button fx:id="navContactListBtn" mnemonicParsing="false" text="Contact list 📑">
+            <Button fx:id="navContactListBtn" mnemonicParsing="false" onAction="#redirectTo" text="Contact list 📑">
                <styleClass>
                   <String fx:value="navBtn" />
                   <String fx:value="btn" />
                </styleClass>
             </Button>
-            <Button fx:id="navAddBtn" mnemonicParsing="false" text="Add contact 👤➕">
+            <Button fx:id="navAddBtn" mnemonicParsing="false" onAction="#redirectTo" text="Add contact 👤➕">
                <styleClass>
                   <String fx:value="navBtn" />
                   <String fx:value="btn" />
