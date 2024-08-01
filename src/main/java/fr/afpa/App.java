@@ -16,8 +16,8 @@ public class App extends Application {
     private static ArrayList<Contact> contacts = new ArrayList<>();
 
     @Override
-    public void start(final Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("contactList"));
         stage.setScene(scene);
         stage.show();
     }
