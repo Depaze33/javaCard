@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ContactBinaryManager<T> implements Serializer<Contact>, Deserializer<Contact> {
 
-    public ContactBinaryManager(Object object) {
+    public ContactBinaryManager() {
     }
 
     /**
