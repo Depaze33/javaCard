@@ -53,7 +53,29 @@
     -fx-padding: 10 10 10 10;
 }
 
+.saveButton{
+    -fx-background-color: #31111D;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+    -fx-text-fill: white;
+    
+}
+.deleteEditButton{
+    -fx-background-color: #6D4646;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+    -fx-text-fill: white;
+}
 
+.exportButton{
+    -fx-background-color: linear-gradient(to right  , #6D4646, #49292D);;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+    -fx-text-fill: white;
+}
 
 .titleBtn{
     -fx-background-color: #31111D;
@@ -64,6 +86,12 @@
 
 }
 
+.genderButton{
+    -fx-background-color: #6D4646;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+}
 
 .roundedBtn{
     -fx-text-fill: white;
@@ -71,6 +99,13 @@
 }
 
 
+.textField{
+    -fx-background-color: #6D4646;
+    -fx-background-radius: 50px;
+    /* -fx-border-radius: 50px; */
+    -fx-border-width: 5px;
+    -fx-text-fill: white;
+}
 
 
 
@@ -124,4 +159,8 @@
 }
 .search .scroll-pane .content{
     -fx-background-color: transparent;
+}
+
+.labelRequired{
+    -fx-text-fill:#c43434;
 }
