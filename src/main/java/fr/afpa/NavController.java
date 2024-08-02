@@ -36,7 +36,7 @@ public class NavController {
                 App.setRoot("contactList");
                 break;
             case "navAddBtn":
-                App.setRoot("nav");
+                App.setRoot("creationContact");
                 break;
             default:
                 break;

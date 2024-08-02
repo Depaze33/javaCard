@@ -10,7 +10,7 @@
       <Label fx:id="coffe" alignment="CENTER" prefWidth="159.0" style="-fx-font-size: 30;" text="☕" />
       <VBox id="btnNavPane" prefWidth="250.0" spacing="20.0">
          <children>
-            <Button fx:id="navContactListBtn" mnemonicParsing="false" onAction="#redirectTo" text="Contact list 📑">
+            <Button fx:id="navContactListBtn" mnemonicParsing="false" onAction="#redirectTo" text="Contact list 📑" >
                <styleClass>
                   <String fx:value="navBtn" />
                   <String fx:value="btn" />

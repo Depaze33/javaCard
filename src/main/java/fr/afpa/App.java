@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadListener;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,9 +19,13 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("contactList"));
+      
+        
         stage.setScene(scene);
         stage.show();
     }
+
+    
 
     static void setRoot(final String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -72,11 +77,12 @@ App.deserializerMethod();
 
    
         //liste des contacts
-        public static void deserializerMethod() throws IOException, ClassNotFoundException {
+        public static ArrayList<Contact> deserializerMethod() throws IOException, ClassNotFoundException {
             ContactBinaryManager manager = new ContactBinaryManager();
             String filePath = "contacts.ser";
             ArrayList<Contact> loadedContacts = manager.loadList(filePath);
             System.out.println("Loaded contacts: " + loadedContacts);
+            return loadedContacts;
         }
     }
 
