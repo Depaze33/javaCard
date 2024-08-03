@@ -124,7 +124,6 @@ public class ContactListController {
 
         ArrayList<Contact> newContacts = new ArrayList<>();
         for (Contact contact : contacts) {
-            System.out.println(contact.getId() + " " + id);
             if (id.compareTo(contact.getId()) != 0){
                 newContacts.add(contact);
 
@@ -138,7 +137,6 @@ public class ContactListController {
     }
 
     public boolean updateCheckBoxes(ActionEvent event){
-        System.out.println("test");
         this.selectedIds = new ArrayList<>();
         // iterate on checkboxes to get the selected ids 
         for (CheckBox checkBox : this.checkBoxes) {
