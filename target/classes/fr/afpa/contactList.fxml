@@ -18,21 +18,21 @@
             <Button mnemonicParsing="false" styleClass="titleBtn" text="CONTACTS" />
             <HBox fx:id="delExportBtns" spacing="7.0">
                <children>
-                  <Button disable="true" mnemonicParsing="false" text="Delete ❌">
+                  <Button fx:id="delAllBtn" disable="true" mnemonicParsing="false" onAction="#deleteAll" text="Delete ❌">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="delBtn" />
                      </styleClass>
                   </Button>
-                  <Button disable="true" mnemonicParsing="false" text="JSON 📄">
+                  <Button fx:id="jsonAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllJson" text="JSON 📄">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="jsonBtn" />
                      </styleClass>
                   </Button>
-                  <Button disable="true" mnemonicParsing="false" text="VCF 📇">
+                  <Button fx:id="vcfAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllVcf" text="VCF 📇">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
@@ -55,7 +55,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="search" promptText="🔍" GridPane.columnSpan="4">
+                  <TextField fx:id="search" maxWidth="500.0" promptText="🔍" GridPane.columnSpan="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" />
                      </GridPane.margin></TextField>

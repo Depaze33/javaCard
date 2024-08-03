@@ -30,6 +30,19 @@ public class ContactListController {
 
     @FXML
     private GridPane gridContactList;
+
+    @FXML
+    private Button delAllBtn;
+
+    @FXML
+    private Button jsonAllBtn;
+
+    @FXML
+    private Button vcfAllBtn;
+
+    ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+
+    ArrayList<String> selectedIds = new ArrayList<>();
     
     
 
@@ -41,7 +54,12 @@ public class ContactListController {
             CheckBox checkBox = new CheckBox();
             checkBox.getStyleClass().add("mainGridCheckbox");
             checkBox.getStyleClass().add("btn");
+            checkBox.getStyleClass().add("checkBoxContact");
+            checkBox.getProperties().put("id",contact.getId());
+            checkBox.setOnAction(event -> this.updateCheckBoxes(event));
             gridContactList.add(checkBox, 0, row);
+
+            this.checkBoxes.add(checkBox);
 
 
             Label name = new Label(contact.getFirstName() + " "+ contact.getLastName().toUpperCase());
@@ -64,7 +82,6 @@ public class ContactListController {
             delBtn.getStyleClass().add("roundedBtn");
             delBtn.getStyleClass().add("btn");
             delBtn.getStyleClass().add("delBtn");
-            delBtn.getProperties().put("id",contact.getId());
             delBtn.setOnAction(event -> {
                 try {
                     this.delContact(contact.getId(), event);
@@ -118,5 +135,43 @@ public class ContactListController {
         // persist datas in binary file
         App.serializerMethode(newContacts);
         return true;
+    }
+
+    public boolean updateCheckBoxes(ActionEvent event){
+        System.out.println("test");
+        this.selectedIds = new ArrayList<>();
+        // iterate on checkboxes to get the selected ids 
+        for (CheckBox checkBox : this.checkBoxes) {
+            if (checkBox.isSelected()){
+                this.selectedIds.add(checkBox.getProperties().get("id").toString());
+            }
+        }
+
+        // show btn in case there is at least 1 contact selected 
+        if (this.selectedIds.size()>0){
+            this.delAllBtn.setDisable(false);
+            this.jsonAllBtn.setDisable(false);
+            this.vcfAllBtn.setDisable(false);
+        }
+        else{
+            this.delAllBtn.setDisable(true);
+            this.jsonAllBtn.setDisable(true);
+            this.vcfAllBtn.setDisable(true);
+        }
+
+
+        return true;
+    }
+
+    public void deleteAll(){
+
+    }
+
+    public void exportAllJson(){
+        
+    }
+
+    public void exportAllVcf(){
+
     }
 }
