@@ -1,16 +1,20 @@
 package fr.afpa;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 public class ContactListController {
@@ -32,7 +36,7 @@ public class ContactListController {
     @FXML
     public void initialize() throws ClassNotFoundException, IOException {
         ArrayList<Contact> contacts = App.deserializerMethod();
-        int row = 2; // 1 instead of 0 because the search bar is in the first row 
+        int row = 1; // 1 instead of 0 because the search bar is in the first row 
         for (Contact contact : contacts) {
             CheckBox checkBox = new CheckBox();
             checkBox.getStyleClass().add("mainGridCheckbox");
@@ -60,6 +64,15 @@ public class ContactListController {
             delBtn.getStyleClass().add("roundedBtn");
             delBtn.getStyleClass().add("btn");
             delBtn.getStyleClass().add("delBtn");
+            delBtn.getProperties().put("id",contact.getId());
+            delBtn.setOnAction(event -> {
+                try {
+                    this.delContact(contact.getId(), event);
+                } catch (ClassNotFoundException | IOException e) {
+                    System.out.println("TESSSSSSSSSSSSSST");
+                    e.printStackTrace();
+                }
+            });
             gridContactList.add(delBtn, 4, row);
 
             Button jsonBtn = new Button("JSON 📄");
@@ -77,5 +90,33 @@ public class ContactListController {
             
             row++;
         }
+    }
+
+
+    // del contact from binary & from view
+    public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException{
+        Integer rowId = GridPane.getRowIndex((Button)event.getSource());
+        // del the row whit all cells
+        // TODO : check if there is a way to remove space gap the deleted row
+        gridContactList.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowId);
+
+        Contact contactToDel = Contact.findContactById(id);
+        // get the contact object to del
+        ArrayList<Contact> contacts = App.deserializerMethod();
+
+
+        ArrayList<Contact> newContacts = new ArrayList<>();
+        for (Contact contact : contacts) {
+            System.out.println(contact.getId() + " " + id);
+            if (id.compareTo(contact.getId()) != 0){
+                newContacts.add(contact);
+
+            }
+        }
+
+
+        // persist datas in binary file
+        App.serializerMethode(newContacts);
+        return true;
     }
 }

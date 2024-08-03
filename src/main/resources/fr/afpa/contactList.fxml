@@ -3,8 +3,6 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -55,44 +53,8 @@
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                <RowConstraints />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="JSON 📄" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="roundedBtn" />
-                        <String fx:value="btn" />
-                        <String fx:value="jsonBtn" />
-                     </styleClass>
-                  </Button>
-                  <CheckBox mnemonicParsing="false" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="mainGridCheckbox" />
-                        <String fx:value="btn" />
-                     </styleClass>
-                  </CheckBox>
-                  <Button mnemonicParsing="false" text="VCF 📇" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="roundedBtn" />
-                        <String fx:value="btn" />
-                        <String fx:value="vcfBtn" />
-                     </styleClass>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Delete ❌" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="roundedBtn" />
-                        <String fx:value="btn" />
-                        <String fx:value="delBtn" />
-                     </styleClass>
-                  </Button>
-                  <Label text="Prénom Nom" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <styleClass>
-                        <String fx:value="mainGridTextElement" />
-                        <String fx:value="mainGridTextName" />
-                     </styleClass>
-                  </Label>
-                  <Label styleClass="mainGridTextElement" text="email@email.fr" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label styleClass="mainGridTextElement" text="0606060606" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="search" promptText="🔍" GridPane.columnSpan="4">
                      <GridPane.margin>
                         <Insets bottom="20.0" />
