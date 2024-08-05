@@ -57,7 +57,7 @@ public class ContactListController {
             checkBox.getStyleClass().add("btn");
             checkBox.getStyleClass().add("checkBoxContact");
             checkBox.getProperties().put("id",contact.getId());
-            checkBox.setOnAction(event -> this.updateCheckBoxes(event));
+            checkBox.setOnAction(event -> this.updateCheckBoxes());
             gridContactList.add(checkBox, 0, row);
 
             this.checkBoxes.add(checkBox);
@@ -120,8 +120,9 @@ public class ContactListController {
         Integer rowId = GridPane.getRowIndex(delBtn);
         // del the row whit all cells
         // TODO : check if there is a way to remove space gap the deleted row
+        // remove checkbox from the arrayList
+        this.checkBoxes.removeIf(checkbox -> checkbox.getProperties().get("id").equals(id));
         gridContactList.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowId);
-
         Contact contactToDel = Contact.findContactById(id);
         // get the contact object to del
         ArrayList<Contact> contacts = App.deserializerMethod();
@@ -130,17 +131,16 @@ public class ContactListController {
         for (Contact contact : contacts) {
             if (id.compareTo(contact.getId()) != 0){
                 newContacts.add(contact);
-
             }
         }
-
         // persist datas in binary file
         App.serializerMethode(newContacts);
+        this.updateCheckBoxes();
         return true;
     }
 
 
-    public boolean updateCheckBoxes(ActionEvent event){
+    public boolean updateCheckBoxes(){
         this.selectedIds = new ArrayList<>();
         // iterate on checkboxes to get the selected ids 
         for (CheckBox checkBox : this.checkBoxes) {
@@ -183,11 +183,9 @@ public class ContactListController {
     public void exportAllVcfSelected(){
 
     }
-
-
-
-
-
+    //////////////////|\\\\\\\\\\\\\\\\\
+    ///////// GETTERS & SETTERS \\\\\\\\
+    //////////////////|\\\\\\\\\\\\\\\\\
 
     public TextField getSearch() {
         return this.search;

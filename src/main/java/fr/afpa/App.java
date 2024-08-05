@@ -25,17 +25,17 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
-        // ArrayList<Contact> contacts = new ArrayList<>();
-        // contacts.add(new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
-        // "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
-        // "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry"));
-        // contacts.add(new Contact("PAUL", "Geraldine", "F", LocalDate.of(1980, 6, 10),
-        // "Gege", "0656232524", "0556324148", "geraldine.paul@gmail.com",
-        // "50 Rue du Puche 33520 ", "https://github.com/PaulGeraldine"));
-        // contacts.add(new Contact("ZARYA", "Emy", "N-B", LocalDate.of(2002, 5, 20),
-        // "Em", "0656232524", "0556324148", "Emy.du33@gmail.com",
-        // "50 Rue du Puche 33520 ", "https://github.com/Emy33"));
-        // App.serializerMethode(contacts);
+        ArrayList<Contact> contacts = new ArrayList<>();
+        contacts.add(new Contact("MICHEL", "Henry", "M", LocalDate.of(1965, 5, 25),
+        "Mimi", "0656232524", "0556324148", "michel.henry@gmail.com",
+        "23 Rue des Poules 33150 Cenon", "https://github.com/MichelHenry"));
+        contacts.add(new Contact("PAUL", "Geraldine", "F", LocalDate.of(1980, 6, 10),
+        "Gege", "0656232524", "0556324148", "geraldine.paul@gmail.com",
+        "50 Rue du Puche 33520 ", "https://github.com/PaulGeraldine"));
+        contacts.add(new Contact("ZARYA", "Emy", "N-B", LocalDate.of(2002, 5, 20),
+        "Em", "0656232524", "0556324148", "Emy.du33@gmail.com",
+        "50 Rue du Puche 33520 ", "https://github.com/Emy33"));
+        App.serializerMethode(contacts);
         launch();
     }
 
