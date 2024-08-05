@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -12,107 +11,93 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.ContactListController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.CreationContactController">
    <center>
-      <VBox fx:id="centerPane" prefHeight="730.0" prefWidth="566.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="centerPane" alignment="TOP_CENTER" prefHeight="730.0" prefWidth="566.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="186.0" styleClass="titleBtn" text="CONTACTS" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="186.0" styleClass="titleBtn" text="CONTACTS" />
             <Label fx:id="requiredLabel" prefHeight="20.0" prefWidth="120.0" styleClass="labelRequired" stylesheets="@style.css" text="* Required fields" textFill="#c43434" />
-            <HBox fx:id="modificationContactBox" prefHeight="662.0" prefWidth="361.0">
+            <VBox fx:id="contactInfosVBox" prefHeight="652.0" prefWidth="402.0">
                <children>
-                  <VBox fx:id="contactInfosVBox" prefHeight="652.0" prefWidth="402.0">
+                  <GridPane fx:id="contactGridPane" prefHeight="606.0" prefWidth="411.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="162.5999755859375" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="310.60003662109375" prefWidth="387.4000244140625" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="510.6000122070312" minHeight="0.0" prefHeight="61.600003051757824" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <GridPane fx:id="contactGridPane" prefHeight="606.0" prefWidth="411.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="171.99998779296874" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="231.20001220703125" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="510.6000122070312" minHeight="0.0" prefHeight="61.600003051757824" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" GridPane.rowIndex="1" />
-                              <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="2" />
-                              <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="3" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="4" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="5" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Adress *" GridPane.rowIndex="6" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="7" />
-                              <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone *" GridPane.rowIndex="8" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="9" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="10" />
-                              <Label minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="11" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField prefWidth="233.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font name="Baskerville Old Face" size="12.0" />
-                                 </font>
-                              </TextField>
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </TextField>
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                              <TextField styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                              <MenuButton alignment="CENTER" mnemonicParsing="false" styleClass="genderButton" stylesheets="@style.css" text="Choice" textFill="#faf8f8" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                <items>
-                                  <MenuItem mnemonicParsing="false">
-                                       <graphic>
-                                          <RadioButton mnemonicParsing="false" text="M">
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="genderChoice" />
-                                             </toggleGroup></RadioButton>
-                                       </graphic>
-                                    </MenuItem>
-                                  <MenuItem mnemonicParsing="false">
-                                       <graphic>
-                                          <RadioButton mnemonicParsing="false" text="F" toggleGroup="$genderChoice" />
-                                       </graphic>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false">
-                                       <graphic>
-                                          <RadioButton mnemonicParsing="false" text="N-B" toggleGroup="$genderChoice" />
-                                       </graphic>
-                                    </MenuItem>
-                                </items>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <GridPane.margin>
-                                    <Insets left="80.0" />
-                                 </GridPane.margin>
-                              </MenuButton>
-                           </children>
-                        </GridPane>
+                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" GridPane.rowIndex="1" />
+                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="2" />
+                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="3" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="4" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="5" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="6" />
+                        <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone *" GridPane.rowIndex="7" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="8" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="9" />
+                        <Label minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="10" />
+                        <TextField fx:id="lastNameTextField" prefWidth="378.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="firstNameTextField" prefWidth="233.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="birthDayTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Baskerville Old Face" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="pseudoTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="personalNumberTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="professionalTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="mailAddressTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="postalAddressTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="gitTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <MenuButton fx:id="genderMenuButton" alignment="CENTER" mnemonicParsing="false" styleClass="genderButton" stylesheets="@style.css" text="Choice" textFill="#faf8f8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <items>
+                            <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <RadioButton mnemonicParsing="false" selected="true" text="M">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="genderChoice" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                 </graphic>
+                              </MenuItem>
+                            <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <RadioButton mnemonicParsing="false" text="F" toggleGroup="$genderChoice" />
+                                 </graphic>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false">
+                                 <graphic>
+                                    <RadioButton mnemonicParsing="false" text="N-B" toggleGroup="$genderChoice" />
+                                 </graphic>
+                              </MenuItem>
+                          </items>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets left="80.0" />
+                           </GridPane.margin>
+                        </MenuButton>
                      </children>
-                  </VBox>
+                  </GridPane>
                </children>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-            </HBox>
+            </VBox>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -138,7 +123,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="154.0" styleClass="exportButton" text="Export VCard 📄" GridPane.rowIndex="1">
+            <Button fx:id="buttonexportVCard" mnemonicParsing="false" prefHeight="40.0" prefWidth="154.0" styleClass="exportButton" text="Export VCard 📄" GridPane.rowIndex="1">
                <padding>
                   <Insets left="20.0" />
                </padding>
@@ -146,22 +131,22 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="exportButton" text="Export jSON 📇 " GridPane.rowIndex="2">
+            <Button fx:id="buttonExportJson" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" styleClass="exportButton" text="Export Json 📇 " GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="131.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Edit ✎" GridPane.rowIndex="5">
+            <Button fx:id="ButtonSave" mnemonicParsing="false" prefHeight="40.0" prefWidth="131.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Edit ✎" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="134.0" styleClass="saveButton" stylesheets="@style.css" text=" Save 🖫" textFill="#fffefe" GridPane.rowIndex="7">
+            <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#persistContact" prefHeight="40.0" prefWidth="134.0" styleClass="saveButton" stylesheets="@style.css" text=" Save 🖫" textFill="#fffefe" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Delete ❌" GridPane.rowIndex="6">
+            <Button fx:id="buttonDelete" mnemonicParsing="false" prefHeight="40.0" prefWidth="135.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Delete ❌" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>

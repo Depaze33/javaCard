@@ -20,6 +20,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>22.0.2</version>
         </dependency>
+
+        <dependency>
+    <groupId>com.googlecode.ez-vcard</groupId>
+    <artifactId>ez-vcard</artifactId>
+    <version>0.12.1</version>
+</dependency>
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 
 
