@@ -18,21 +18,21 @@
             <Button mnemonicParsing="false" styleClass="titleBtn" text="CONTACTS" />
             <HBox fx:id="delExportBtns" spacing="7.0">
                <children>
-                  <Button fx:id="delAllBtn" disable="true" mnemonicParsing="false" onAction="#deleteAll" text="Delete ❌">
+                  <Button fx:id="delAllBtn" disable="true" mnemonicParsing="false" onAction="#deleteAllSelected" text="Delete ❌">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="delBtn" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="jsonAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllJson" text="JSON 📄">
+                  <Button fx:id="jsonAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllJsonSelected" text="JSON 📄">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />
                         <String fx:value="jsonBtn" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="vcfAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllVcf" text="VCF 📇">
+                  <Button fx:id="vcfAllBtn" disable="true" mnemonicParsing="false" onAction="#exportAllVcfSelected" text="VCF 📇">
                      <styleClass>
                         <String fx:value="roundedBtn" />
                         <String fx:value="btn" />

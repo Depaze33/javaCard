@@ -149,7 +149,7 @@ public class Contact implements Serializable {
     public static Contact findContactById(String id) throws ClassNotFoundException, IOException {
         ArrayList<Contact> contacts = App.deserializerMethod();
         for (Contact contact : contacts) {
-            if (Objects.equals(contact.getId(), id)){
+            if (contact.getId().equals(id)){
                 return contact;
             }
         }

@@ -44,6 +44,7 @@ public class ContactListController {
 
     ArrayList<String> selectedIds = new ArrayList<>();
     
+    ArrayList<Button> delBtnsArray = new ArrayList<>();
     
 
     @FXML
@@ -81,12 +82,13 @@ public class ContactListController {
             Button delBtn = new Button("Delete ❌");
             delBtn.getStyleClass().add("roundedBtn");
             delBtn.getStyleClass().add("btn");
+            delBtn.getProperties().put("id",contact.getId());
             delBtn.getStyleClass().add("delBtn");
+            delBtnsArray.add(delBtn);
             delBtn.setOnAction(event -> {
                 try {
                     this.delContact(contact.getId(), event);
                 } catch (ClassNotFoundException | IOException e) {
-                    System.out.println("TESSSSSSSSSSSSSST");
                     e.printStackTrace();
                 }
             });
@@ -109,10 +111,13 @@ public class ContactListController {
         }
     }
 
+    public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException{
+        return this.delContactWithoutDelBtn(id, (Button)event.getSource());
+    }
 
     // del contact from binary & from view
-    public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException{
-        Integer rowId = GridPane.getRowIndex((Button)event.getSource());
+    public boolean delContactWithoutDelBtn(String id, Button delBtn) throws ClassNotFoundException, IOException{
+        Integer rowId = GridPane.getRowIndex(delBtn);
         // del the row whit all cells
         // TODO : check if there is a way to remove space gap the deleted row
         gridContactList.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowId);
@@ -120,7 +125,6 @@ public class ContactListController {
         Contact contactToDel = Contact.findContactById(id);
         // get the contact object to del
         ArrayList<Contact> contacts = App.deserializerMethod();
-
 
         ArrayList<Contact> newContacts = new ArrayList<>();
         for (Contact contact : contacts) {
@@ -130,11 +134,11 @@ public class ContactListController {
             }
         }
 
-
         // persist datas in binary file
         App.serializerMethode(newContacts);
         return true;
     }
+
 
     public boolean updateCheckBoxes(ActionEvent event){
         this.selectedIds = new ArrayList<>();
@@ -157,19 +161,111 @@ public class ContactListController {
             this.vcfAllBtn.setDisable(true);
         }
 
-
         return true;
     }
 
-    public void deleteAll(){
-
+    // delete all selcted contact from the list + persist
+    public void deleteAllSelected() throws ClassNotFoundException, IOException{
+        // iterate on all del buttons
+        for (Button delBtn : this.delBtnsArray) {
+            // If there is at least 1 id selected & if the delete btn has the right contact id
+            if (!this.selectedIds.isEmpty() && this.selectedIds.contains(delBtn.getProperties().get("id").toString())){
+                // delete contact
+                this.delContactWithoutDelBtn(delBtn.getProperties().get("id").toString(), delBtn);
+            }
+        }
     }
 
-    public void exportAllJson(){
+    public void exportAllJsonSelected(){
         
     }
 
-    public void exportAllVcf(){
+    public void exportAllVcfSelected(){
 
+    }
+
+
+
+
+
+
+    public TextField getSearch() {
+        return this.search;
+    }
+
+    public void setSearch(TextField search) {
+        this.search = search;
+    }
+
+    public VBox getCenterPane() {
+        return this.centerPane;
+    }
+
+    public void setCenterPane(VBox centerPane) {
+        this.centerPane = centerPane;
+    }
+
+    public HBox getDelExportBtns() {
+        return this.delExportBtns;
+    }
+
+    public void setDelExportBtns(HBox delExportBtns) {
+        this.delExportBtns = delExportBtns;
+    }
+
+    public GridPane getGridContactList() {
+        return this.gridContactList;
+    }
+
+    public void setGridContactList(GridPane gridContactList) {
+        this.gridContactList = gridContactList;
+    }
+
+    public Button getDelAllBtn() {
+        return this.delAllBtn;
+    }
+
+    public void setDelAllBtn(Button delAllBtn) {
+        this.delAllBtn = delAllBtn;
+    }
+
+    public Button getJsonAllBtn() {
+        return this.jsonAllBtn;
+    }
+
+    public void setJsonAllBtn(Button jsonAllBtn) {
+        this.jsonAllBtn = jsonAllBtn;
+    }
+
+    public Button getVcfAllBtn() {
+        return this.vcfAllBtn;
+    }
+
+    public void setVcfAllBtn(Button vcfAllBtn) {
+        this.vcfAllBtn = vcfAllBtn;
+    }
+
+    public ArrayList<CheckBox> getCheckBoxes() {
+        return this.checkBoxes;
+    }
+
+    public void setCheckBoxes(ArrayList<CheckBox> checkBoxes) {
+        this.checkBoxes = checkBoxes;
+    }
+
+    public ArrayList<String> getSelectedIds() {
+        return this.selectedIds;
+    }
+
+    public void setSelectedIds(ArrayList<String> selectedIds) {
+        this.selectedIds = selectedIds;
+    }
+
+    public ArrayList<Button> getDelBtnsArray() {
+        return this.delBtnsArray;
+    }
+
+    public void setDelBtnsArray(ArrayList<Button> delBtnsArray) {
+        this.delBtnsArray = delBtnsArray;
     }
 }
