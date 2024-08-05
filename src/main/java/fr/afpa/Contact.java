@@ -155,6 +155,20 @@ public class Contact implements Serializable {
 
         return null;
     }
-    
+  
+    // Get the pos of an element of the list thx to the id
+    public static Integer findContactPosById(String id) throws ClassNotFoundException, IOException {
+
+        ArrayList<Contact> contacts = App.deserializerMethod();
+        for (Integer i =0; i< contacts.size(); i++) {
+            // if the Contact at the current pos (i) match the right id 
+            if (contacts.get(i).getId().equals(id)){
+                return i;
+            }
+        }
+
+        return null;
+    }
+  
 
 }

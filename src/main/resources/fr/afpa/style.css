@@ -20,6 +20,13 @@
     -fx-text-fill: rgb(32, 32, 32);
 }
 
+
+.textField:disabled{
+    -fx-cursor: null;
+    -fx-background-color: #9d9d9d16;
+    -fx-text-fill: rgb(0, 0, 0);
+}
+
 /* ======= NAV ======== */
 #leftPane{
     -fx-background-color: -fx-bgLeft;
@@ -149,6 +156,8 @@
 
 .mainGridTextName{
     -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-cursor: hand;
 }
 
 .search .scroll-pane {

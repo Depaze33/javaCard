@@ -28,14 +28,16 @@ public class NavController {
     @FXML void redirectTo(ActionEvent event) throws IOException{
         // Get the id of the button that has been clicked
         Node source = (Node) event.getSource();
-        String eventId = source.getId(); 
+        String eventId = source.getId();
 
         // redirect to the right view depending of the btn id
         switch (eventId) {
             case "navContactListBtn":
+                CreationContactController.setId(null);
                 App.setRoot("contactList");
                 break;
             case "navAddBtn":
+                CreationContactController.setId(null);
                 App.setRoot("creationContact");
                 break;
             default:
