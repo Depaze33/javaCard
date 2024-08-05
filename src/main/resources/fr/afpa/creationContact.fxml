@@ -2,12 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -42,15 +39,15 @@
                         <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" GridPane.rowIndex="1" />
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="2" />
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="3" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="4" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="5" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="6" />
-                        <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone *" GridPane.rowIndex="7" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="8" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="9" />
+                        <Label fx:id="lastNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" GridPane.rowIndex="1" />
+                        <Label fx:id="firstNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="2" />
+                        <Label fx:id="genderLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="3" />
+                        <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="4" />
+                        <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="5" />
+                        <Label fx:id="personalPhoneLabel" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="6" />
+                        <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="7" />
+                        <Label fx:id="mailLabel" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="8" />
+                        <Label fx:id="postalAdressLabel" minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="9" />
                         <Label minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="10" />
                         <TextField fx:id="lastNameTextField" prefWidth="378.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="firstNameTextField" prefWidth="233.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -65,35 +62,7 @@
                         <TextField fx:id="mailAddressTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="postalAddressTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <TextField fx:id="gitTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <MenuButton fx:id="genderMenuButton" alignment="CENTER" mnemonicParsing="false" styleClass="genderButton" stylesheets="@style.css" text="Choice" textFill="#faf8f8" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                          <items>
-                            <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" selected="true" text="M">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="genderChoice" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                 </graphic>
-                              </MenuItem>
-                            <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" text="F" toggleGroup="$genderChoice" />
-                                 </graphic>
-                              </MenuItem>
-                              <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" text="N-B" toggleGroup="$genderChoice" />
-                                 </graphic>
-                              </MenuItem>
-                          </items>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <GridPane.margin>
-                              <Insets left="80.0" />
-                           </GridPane.margin>
-                        </MenuButton>
+                        <ComboBox fx:id="comboBoxGender" prefWidth="150.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
@@ -136,7 +105,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="ButtonSave" mnemonicParsing="false" prefHeight="40.0" prefWidth="131.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Edit ✎" GridPane.rowIndex="5">
+            <Button fx:id="buttonEdit" mnemonicParsing="false" prefHeight="40.0" prefWidth="131.0" styleClass="deleteEditButton" stylesheets="@style.css" text="Edit ✎" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
