@@ -45,10 +45,10 @@
                         <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="4" />
                         <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="5" />
                         <Label fx:id="personalPhoneLabel" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="6" />
-                        <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="7" />
+                        <Label fx:id="proffesionalPhoneLabel" minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="7" />
                         <Label fx:id="mailLabel" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="8" />
                         <Label fx:id="postalAdressLabel" minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="9" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="10" />
+                        <Label fx:id="gitLinkLabel" minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="10" />
                         <TextField fx:id="lastNameTextField" prefWidth="378.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="firstNameTextField" prefWidth="233.0" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="birthDayTextField" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -92,7 +92,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="buttonexportVCard" mnemonicParsing="false" prefHeight="40.0" prefWidth="154.0" styleClass="exportButton" text="Export VCard 📄" GridPane.rowIndex="1">
+            <Button fx:id="buttonExportVCard" mnemonicParsing="false" onAction="#saveOneContactAsVCard" prefHeight="40.0" prefWidth="154.0" styleClass="exportButton" text="Export VCard 📄" GridPane.rowIndex="1">
                <padding>
                   <Insets left="20.0" />
                </padding>

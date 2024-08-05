@@ -81,4 +81,29 @@ public class App extends Application {
             return new ArrayList<>();
         }
     }
+
+    // Save a single contact as VCard
+    public static void saveOneContactVCard(Contact contact, String filePath) {
+        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
+        try {
+            vCardSerializer.save(filePath, contact);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Save a list of contacts as VCard
+    public static void saveContactsAsVCard(ArrayList<Contact> contacts, String filePath) {
+        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
+        try {
+            vCardSerializer.saveList(filePath, contacts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void serializerMethode(Contact contact, String filePath) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'serializerMethode'");
+    }
 }

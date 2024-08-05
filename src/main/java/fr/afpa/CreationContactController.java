@@ -48,16 +48,21 @@ public class CreationContactController {
     @FXML
     private Label birthDayLabel;
 
-  
     @FXML
     private Label personalPhoneLabel;
+
+    @FXML
+    private Label proffesionalPhoneLabel;
 
     @FXML
     private Label mailLabel;
 
     @FXML
     private Label postalAdressLabel;
-    
+
+    @FXML
+    private Label gitLinkLabel;
+
     @FXML
     private Button buttonExportJson;
 
@@ -114,11 +119,19 @@ public class CreationContactController {
     public void initialize() {
 
         // ONLY DEBUG CODE
+        firstNameTextField.setText("Marco");
+        lastNameTextField.setText("Marco");
         birthDayTextField.setText("2021-01-01");
+        // personalNumberTextField.setText(0224452710);
+        mailAddressTextField.setText("clarisse@gmail.com");
+        postalAddressTextField.setText("32 rue du marchal Galienni 33150 Cenon");
+        gitTextField.setText("https://github.com/Depaze33");
 
         ////
 
         // hide the edit button
+
+        // buttonExportVCard.setVisible(false);
         buttonEdit.setVisible(false);
         buttonDelete.setVisible(false);
 
@@ -143,7 +156,7 @@ public class CreationContactController {
         String gender = comboBoxGender.getPromptText();
         LocalDate birthDate = LocalDate.now();
         String pseudo = pseudoTextField.getText();
-        String personnalNumber = personalNumberTextField.getText();
+        String personalNumber = personalNumberTextField.getText();
         String professionalNumber = professionalTextField.getText();
         String mailAddress = mailAddressTextField.getText();
         String postalAddress = postalAddressTextField.getText();
@@ -153,37 +166,52 @@ public class CreationContactController {
 
         boolean error = false;
         // regex and required fields
-        if (lastName.trim().isEmpty()) {
+        if (lastName.trim().isEmpty() || !lastName.matches("^[a-zA-Z\\s]+$")) {
             lastNameLabel.getStyleClass().add("labelRequired");
             error = true;
         }
 
-        if (firstName.trim().isEmpty()) {
+        if (firstName.trim().isEmpty() || !firstName.matches("^[a-zA-Z\\s]+$")) {
             firstNameLabel.getStyleClass().add("labelRequired");
             error = true;
         }
 
+        // if (birthDate == null || !birthDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+        // // The date is null or doesn't match the format YYYY-MM-DD
+        // birthDayLabel.getStyleClass().add("labelRequired");
+        // }
 
-        if (birthDate == null) {
-            // La date est null
-            birthDayLabel.getStyleClass().add("labelRequired");
-        }
-       
-        if (personnalNumber.trim().isEmpty()) {
+        if (personalNumber.trim().isEmpty() ||
+                !personalNumber.matches(
+                        "^(\\+?\\d{1,3}[-.\\s]?)?\\(?\\d{1,4}\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$")) {
             personalPhoneLabel.getStyleClass().add("labelRequired");
             error = true;
         }
-        if (mailAddress.trim().isEmpty()) {
+
+        if (!professionalNumber.trim().isEmpty() &&!professionalNumber.matches(
+            "^(\\+?\\d{1,3}[-.\\s]?)?\\(?\\d{1,4}\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$")) {
+            proffesionalPhoneLabel.getStyleClass().add("labelRequired");
+            error = true;
+        }
+
+        if (mailAddress.trim().isEmpty() &&
+                !mailAddress.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             mailLabel.getStyleClass().add("labelRequired");
             error = true;
         }
 
-        if (postalAddress.trim().isEmpty()) {
+        if (postalAddress.trim().isEmpty() ||
+                !postalAddress.matches(
+                        "^\\d+\\s[A-Za-z0-9\\s]+(?:\\s[A-Za-z0-9\\s]+)*(?:,\\s[A-Za-z\\s]+)?(?:\\s\\d{5}(-\\d{4})?)?$")) {
             postalAdressLabel.getStyleClass().add("labelRequired");
             error = true;
         }
 
-    
+        if (!git.trim().isEmpty() && !git.matches(
+        "^https?://(github\\.com|gitlab\\.com)/([a-zA-Z0-9._-]+)$")) {
+    gitLinkLabel.getStyleClass().add("labelRequired");
+    error = true;
+}
 
         if (!error) {
             // instanciation of a new Contact object
@@ -193,7 +221,7 @@ public class CreationContactController {
                     gender,
                     birthDate,
                     pseudo,
-                    personnalNumber,
+                    personalNumber,
                     professionalNumber,
                     mailAddress,
                     postalAddress,
@@ -208,8 +236,41 @@ public class CreationContactController {
 
             // Save the updated list of contacts
             App.serializerMethode(contacts);
-            App.setRoot("contactList");
+            // App.setRoot("contactList");
             System.out.println("Contact saved: " + newContact);
+        }
+    }
+
+    // Method to save the current contact as VCard
+    @FXML
+    private void saveOneContactAsVCard(ActionEvent event) throws IOException {
+        Contact contact = new Contact(
+                lastNameTextField.getText(),
+                firstNameTextField.getText(),
+                comboBoxGender.getSelectionModel().getSelectedItem(),
+                LocalDate.parse(birthDayTextField.getText()),
+                pseudoTextField.getText(),
+                personalNumberTextField.getText(),
+                professionalTextField.getText(),
+                mailAddressTextField.getText(),
+                postalAddressTextField.getText(),
+                gitTextField.getText());
+
+        String filePath = "Onecontact.vcf";
+        App.saveOneContactVCard(contact, filePath);
+        System.out.println("Current contact saved as VCard: " + contact);
+    }
+
+    // Method to save all contacts as VCard
+    @FXML
+    private void saveAllContactsAsVCard(ActionEvent event) {
+        try {
+            ArrayList<Contact> contacts = App.deserializerMethod();
+            String filePath = "contacts.vcf";
+            App.saveContactsAsVCard(contacts, filePath);
+            System.out.println("All contacts saved as VCard.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
