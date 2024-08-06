@@ -44,7 +44,6 @@ public class ContactListController {
 
     @FXML
     public void initialize() throws ClassNotFoundException, IOException {
-        
 
         ArrayList<Contact> contacts = App.deserializerMethod();
         int row = 1; // 1 instead of 0 because the search bar is in the first row
@@ -111,7 +110,7 @@ public class ContactListController {
 
             row++;
         }
-        
+
     }
 
     public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
@@ -178,7 +177,7 @@ public class ContactListController {
         }
     }
 
-    public boolean redirectToEdit(String id) throws IOException{
+    public boolean redirectToEdit(String id) throws IOException {
         CreationContactController.setId(id);
         App.setRoot("CreationContact");
 
@@ -192,9 +191,9 @@ public class ContactListController {
     public void exportAllVcfSelected() {
 
     }
-    //////////////////|\\\\\\\\\\\\\\\\\
+    ////////////////// |\\\\\\\\\\\\\\\\\
     ///////// GETTERS & SETTERS \\\\\\\\
-    //////////////////|\\\\\\\\\\\\\\\\\
+    ////////////////// |\\\\\\\\\\\\\\\\\
 
     public TextField getSearch() {
         return this.search;

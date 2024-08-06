@@ -3,13 +3,10 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -40,18 +37,20 @@
                         <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
                     </rowConstraints>
                      <children>
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" />
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="1" />
-                        <Label minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="2" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="3" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Pseudo" GridPane.rowIndex="4" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="5" />
-                        <Label minWidth="-Infinity" prefHeight="26.0" prefWidth="178.0" text="Professionnal Phone *" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="6" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="7" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="8" />
-                        <Label minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="9" />
+                     
+                        <Label fx:id="lastNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" />
+                        <Label fx:id="firstNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="1" />
+                        <Label fx:id="genderLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="2" />
+                        <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="3" />
+                        <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="4" />
+                        <Label fx:id="personalPhoneLabel" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="5" />
+                        <Label fx:id="proffesionalPhoneLabel" minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="6" />
+                        <Label fx:id="mailLabel" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="7" />
+                        <Label fx:id="postalAdressLabel" minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="8" />
+                        <Label fx:id="gitLinkLabel" minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="9" />
                         <TextField fx:id="lastNameTextField" prefWidth="378.0" promptText="Last Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" />
                         <TextField fx:id="firstNameTextField" prefWidth="233.0" promptText="First Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="pseudoTextField" promptText="pseudo" styleClass="textField" stylesheets="@style.css" text="pseudo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -60,39 +59,7 @@
                         <TextField fx:id="mailAddressTextField" promptText="test@test.domain" styleClass="textField" stylesheets="@style.css" text="test@test.fr" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="gitTextField" promptText="github.com/test" styleClass="textField" stylesheets="@style.css" text="github.com/test" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <MenuButton fx:id="genderMenuButton" alignment="TOP_LEFT" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@style.css" text="Choice" textFill="#faf8f8" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                          <items>
-                            <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" styleClass="btn" text="M">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="genderChoice" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                 </graphic>
-                              </MenuItem>
-                            <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" styleClass="btn" text="F" toggleGroup="$genderChoice" />
-                                 </graphic>
-                              </MenuItem>
-                              <MenuItem mnemonicParsing="false">
-                                 <graphic>
-                                    <RadioButton mnemonicParsing="false" selected="true" styleClass="btn" text="N-B" toggleGroup="$genderChoice" />
-                                 </graphic>
-                              </MenuItem>
-                          </items>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <styleClass>
-                              <String fx:value="genderButton" />
-                              <String fx:value="btn" />
-                           </styleClass>
-                        </MenuButton>
+                        <ComboBox fx:id="comboBoxGender" prefWidth="150.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <DatePicker fx:id="birthDayTextField" prefHeight="38.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
@@ -131,7 +98,7 @@
             <RowConstraints maxHeight="43.60001220703123" minHeight="5.999975585937477" prefHeight="35.400012207031295" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="buttonexportVCard" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Export VCard 📄" GridPane.rowIndex="3">
+            <Button fx:id="buttonexportVCard" alignment="CENTER" mnemonicParsing="false" onAction="#saveOneContactAsVCard" prefHeight="40.0" prefWidth="150.0" text="Export VCard 📄" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>

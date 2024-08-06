@@ -4,52 +4,52 @@
 } */
 
 
-*{
+* {
     -fx-bgLeft: #cec0c0bd;
     -fx-bgCenter: #CDBFBF;
     -fx-font-size: 16px;
 
     -fx-primary-color: #6D4646;
-	-fx-secondary-color: #31111D;
-	-fx-light-grey-color: #CDBFBF;
-    
-	-fx-focus-color: -fx-secondary-color;
+    -fx-secondary-color: #31111D;
+    -fx-light-grey-color: #CDBFBF;
+
+    -fx-focus-color: -fx-secondary-color;
 }
 
-.btn{
+.btn {
     -fx-cursor: hand;
 }
 
-.btn:disabled{
+.btn:disabled {
     -fx-cursor: null;
     -fx-background-color: #6b6b6b;
     -fx-text-fill: rgb(32, 32, 32);
 }
 
 
-.textField:disabled{
+.textField:disabled {
     -fx-cursor: null;
     -fx-background-color: #9d9d9d16;
     -fx-text-fill: rgb(0, 0, 0);
 }
 
 /* ======= NAV ======== */
-#leftPane{
+#leftPane {
     -fx-background-color: -fx-bgLeft;
 }
 
-#coffe{
+#coffe {
     -fx-padding: 10 10 10 10;
     -fx-font-size: 25;
     -fx-text-fill: #6D4646;
 }
 
-#btnNavPane{
+#btnNavPane {
     -fx-pref-height: 480;
     -fx-alignment: center;
 }
 
-.navBtn{
+.navBtn {
     -fx-background-color: #6D4646;
     -fx-text-fill: white;
     -fx-pref-width: 220;
@@ -60,21 +60,22 @@
 
 /* ======= CONTENT ======== */
 
-#centerPane{
+#centerPane {
     -fx-background-color: #CDBFBF;
     -fx-alignment: top-center;
     -fx-padding: 10 10 10 10;
 }
 
-.saveButton{
+.saveButton {
     -fx-background-color: #31111D;
     -fx-background-radius: 50px;
     -fx-border-radius: 50px;
     -fx-border-width: 5px;
     -fx-text-fill: white;
-    
+
 }
-.deleteEditButton{
+
+.deleteEditButton {
     -fx-background-color: #6D4646;
     -fx-background-radius: 50px;
     -fx-border-radius: 50px;
@@ -82,15 +83,16 @@
     -fx-text-fill: white;
 }
 
-.exportButton{
-    -fx-background-color: linear-gradient(to right  , #6D4646, #49292D);;
+.exportButton {
+    -fx-background-color: linear-gradient(to right, #6D4646, #49292D);
+    ;
     -fx-background-radius: 50px;
     -fx-border-radius: 50px;
     -fx-border-width: 5px;
     -fx-text-fill: white;
 }
 
-.titleBtn{
+.titleBtn {
     -fx-background-color: #31111D;
     -fx-text-fill: white;
     -fx-pref-width: 220;
@@ -99,20 +101,26 @@
 
 }
 
-.genderButton{
+#requiredLabel {
+    -fx-text-fill: rgb(188, 17, 17);
+}
+
+.comboBoxGender {
     -fx-background-color: #6D4646;
     -fx-background-radius: 50px;
     -fx-border-radius: 50px;
     -fx-border-width: 5px;
+    -fx-text-fill: white;
+
 }
 
-.roundedBtn{
+.roundedBtn {
     -fx-text-fill: white;
     -fx-background-radius: 20px;
 }
 
 
-.textField{
+.textField {
     -fx-background-color: #6D4646;
     -fx-background-radius: 50px;
     /* -fx-border-radius: 50px; */
@@ -122,18 +130,18 @@
 
 
 
-.delBtn{
-    -fx-background-color: linear-gradient(to bottom  , #9d1c1ccf, #4b0909cf);
+.delBtn {
+    -fx-background-color: linear-gradient(to bottom, #9d1c1ccf, #4b0909cf);
 
 }
 
-.jsonBtn{
-    -fx-background-color: linear-gradient(to bottom  , #a46868, #341f21);
+.jsonBtn {
+    -fx-background-color: linear-gradient(to bottom, #a46868, #341f21);
 }
 
-.vcfBtn{
-    -fx-background-color: linear-gradient(to bottom  , #a46868, #341f21);
-    
+.vcfBtn {
+    -fx-background-color: linear-gradient(to bottom, #a46868, #341f21);
+
 }
 
 .check-box:selected .box {
@@ -149,18 +157,18 @@
 .check-box:selected .mark {
 
     -fx-background-color: #6D4646;
-    
+
 }
 
-.mainGridCheckbox{
+.mainGridCheckbox {
     -fx-padding: 0 5 0 2;
 }
 
-.mainGridTextElement{
+.mainGridTextElement {
     -fx-text-fill: #6D4646;
 }
 
-.mainGridTextName{
+.mainGridTextName {
     -fx-font-weight: bold;
     -fx-underline: true;
     -fx-cursor: hand;
@@ -169,70 +177,94 @@
 .search .scroll-pane {
     -fx-background-color: transparent;
 }
-.search .scroll-pane .viewport{
-    -fx-background-color: transparent;
-}
-.search .scroll-pane .content{
+
+.search .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
-.labelRequired{
-    -fx-text-fill:#c43434;
+.search .scroll-pane .content {
+    -fx-background-color: transparent;
 }
 
 .date-picker .arrow-button {
-	-fx-background-color: -fx-primary-color;
-	-fx-background-radius: 0;
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 0;
 }
+
 .date-picker .arrow-button:hover {
-	-fx-background-color: -fx-secondary-color;
+    -fx-background-color: -fx-secondary-color;
 }
+
 .date-picker .arrow-button .arrow {
-	-fx-background-color: white;
+    -fx-background-color: white;
 }
+
 .date-picker .cell {
-	-fx-background-color: white;
+    -fx-background-color: white;
 }
+
 .date-picker .cell:hover {
-	-fx-background-color: -fx-light-grey-color;
+    -fx-background-color: -fx-light-grey-color;
     -fx-text-fill: -fx-secondary-color;
 
 }
+
 .date-picker .cell:focused {
-	-fx-background-color: -fx-light-grey-color;
+    -fx-background-color: -fx-light-grey-color;
 }
+
 .date-picker .selected {
-	-fx-background-color: -fx-primary-color;
-	-fx-text-fill: white;
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
 }
+
 .date-picker .selected:focused {
-	-fx-background-color: -fx-primary-color;
-	-fx-text-fill: white;
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
 }
-.date-picker-popup  {
-	-fx-border-color: transparent;
+
+.date-picker-popup {
+    -fx-border-color: transparent;
 }
+
 .date-picker-popup .month-year-pane {
-	-fx-background-color: -fx-primary-color;
+    -fx-background-color: -fx-primary-color;
 }
+
 .date-picker-popup .month-year-pane .label {
-	-fx-text-fill: white;
+    -fx-text-fill: white;
 }
+
 .date-picker-popup .week-number-cell {
-	-fx-text-fill: -fx-secondary-color;
+    -fx-text-fill: -fx-secondary-color;
 }
+
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
-	-fx-background-color: white;
+    -fx-background-color: white;
 }
 
 .date-picker {
     -fx-background-radius: 20 20 20 20;
 }
-.date-picker > .text-field {
+
+.date-picker>.text-field {
     -fx-background-radius: 20 0 0 20;
 }
 
-.date-picker > .arrow-button {
+.date-picker>.arrow-button {
     -fx-background-radius: 0 20 20 0;
+}
+
+.labelRequired {
+    -fx-text-fill: #c43434;
+}
+
+
+.comboBoxGender .list-cell {
+    -fx-text-fill: white;
+}
+
+.comboBoxGender .list-view .list-cell {
+    -fx-text-fill: black;
 }

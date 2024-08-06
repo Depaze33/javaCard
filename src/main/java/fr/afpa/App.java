@@ -38,21 +38,28 @@ public class App extends Application {
     }
 
     public static void serializerMethode(ArrayList<Contact> contacts) {
-        final ContactBinaryManager manager = new ContactBinaryManager();
+        final ContactBinaryManager binaryManager = new ContactBinaryManager();
+        final ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
 
         try {
-            // Save contact
-            String filePath = "contacts.ser";
-            manager.saveList(filePath, contacts);
+            // Save contacts to binary file
+            String binaryFilePath = "contacts.ser";
+            binaryManager.saveList(binaryFilePath, contacts);
 
-            // Chargement contact vérification
+            // Save contacts to VCard file
+            String vCardFilePath = "contacts.vcf";
+            vCardSerializer.saveList(vCardFilePath, contacts);
 
+            // Load contacts for verification
+            // ArrayList<Contact> loadedContacts = deserializerMethod();
+            // System.out.println("Contacts loaded for verification: " +
+            // loadedContacts.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Chargement de la liste des contacts
+    // Method to deserialize contacts
     public static ArrayList<Contact> deserializerMethod() throws IOException, ClassNotFoundException {
         try {
             ContactBinaryManager manager = new ContactBinaryManager();
@@ -61,8 +68,33 @@ public class App extends Application {
 
             return loadedContacts;
         } catch (Exception e) {
+            e.printStackTrace();
             return new ArrayList<>();
         }
+    }
 
+    // Save a single contact as VCard
+    public static void saveOneContactVCard(Contact contact, String filePath) {
+        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
+        try {
+            vCardSerializer.save(filePath, contact);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Save a list of contacts as VCard
+    public static void saveContactsAsVCard(ArrayList<Contact> contacts, String filePath) {
+        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
+        try {
+            vCardSerializer.saveList(filePath, contacts);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void serializerMethode(Contact contact, String filePath) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'serializerMethode'");
     }
 }
