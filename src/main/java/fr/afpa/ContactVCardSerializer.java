@@ -30,7 +30,7 @@ public class ContactVCardSerializer implements Serializer<Contact> {
         vCard.append("VERSION:4.0\n");
 
         vCard.append("N:").append(contact.getLastName()).append(contact.getFirstName()).append(";;").append(contact.getGender()).append(";").append("\n");
-        vCard.append("PSEUDONYME:").append(contact.getPseudo()).append("\n");
+        vCard.append("X-ANDROID-CUSTOM:").append(contact.getPseudo()).append("\n");
         vCard.append("TEL;TYPE=WORK,VOICE:").append(contact.getProfessionalNumber()).append("\n");
         vCard.append("TEL;TYPE=HOME,VOICE:").append(contact.getPrivateNumber()).append("\n");
         vCard.append("EMAIL;TYPE=PREF,INTERNET:").append(contact.getMailAdress()).append("\n");
