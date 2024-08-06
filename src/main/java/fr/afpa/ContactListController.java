@@ -106,6 +106,7 @@ public class ContactListController {
             vcfBtn.getStyleClass().add("roundedBtn");
             vcfBtn.getStyleClass().add("btn");
             vcfBtn.getStyleClass().add("vcfBtn");
+            vcfBtn.getProperties().put("id", contact.getId());
             gridContactList.add(vcfBtn, 6, row);
 
             row++;
