@@ -9,12 +9,12 @@ public class Fixtures {
 
     public static void generateFixtures(){
         ArrayList<Contact> contacts = new ArrayList<>();
-        String[] names = {"Aaron", "Caitlin", "Mazda", "Bianca", "Brunehilde", "Betsie", "Fabricio"};
+        String[] names = {"Aaron", "Caitlin", "Mazda", "Bianca", "Brunehilde", "Betsie", "Fabricio", "accessories", "accompaniments", "accouterments", "appliances", "appurtenances", "articles", "attachments", "baggage", "belongings", "contraptions", "contrivances", "devices", "equipage", "facilities", "fittings", "gadgets", "habiliments", "impedimenta", "materiel", "outfit", "paraphernalia", "provisions", "rig", "setup", "shebang", "stock", "store", "stuff", "tackle", "things", "tools", "trappings", "traps", "utensils"};
         String[] genders = {"M", "F", "NB"};
 
         for (Integer i=0; i<10; i++){
-            String firstName = names[randInt(6)];
-            String lastName = names[randInt(6)];
+            String firstName = names[randInt(names.length-1)];
+            String lastName = names[randInt(names.length-1)];
             String gender = genders[randInt(2)];
 
             StringBuilder phone = new StringBuilder();
@@ -32,7 +32,7 @@ public class Fixtures {
 
             contacts.add(new Contact(firstName, lastName, gender, LocalDate.now(),
             "Mimi", phone.toString(), phone.toString(), firstName+lastName+"@gmail.com",
-            randInt(100)+ " rue des "+ names[randInt(6)]+ " "+ zip +" "+names[randInt(6)], "https://github.com/"+firstName+lastName));
+            randInt(100)+ " rue des "+ names[randInt(names.length-1)]+ " "+ zip +" "+names[randInt(names.length-1)], "https://github.com/"+firstName+lastName));
 
         }
        

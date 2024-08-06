@@ -47,6 +47,7 @@ public class ContactListController {
     @FXML
     public void initialize() throws ClassNotFoundException, IOException {
 
+        
         this.diplaySearchResult(App.deserializerMethod());
 
         search.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -63,14 +64,15 @@ public class ContactListController {
     private void serializeVcfContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
         Contact contact = Contact.findContactById(id);
         ContactVCardSerializer serializer = new ContactVCardSerializer();
-        serializer.save(contact.getFirstName() + contact.getLastName() + ".vcf", contact);
+        serializer.save( contact.getFirstName()+contact.getLastName()+".vcf", contact);
+       
 
     }
 
     @FXML
     private void exportAllVcfSelected(ActionEvent event) throws ClassNotFoundException, IOException {
 
-        ArrayList<Contact> contactsSerializerList = new ArrayList<>();
+    ArrayList<Contact> contactsSerializerList = new ArrayList<>();
         ArrayList<Contact> contacts = App.deserializerMethod();
 
         for (CheckBox checkBox : this.checkBoxes) {
@@ -83,8 +85,11 @@ public class ContactListController {
         }
         ContactVCardSerializer serializer = new ContactVCardSerializer();
         serializer.saveList("contacts.vcf", contactsSerializerList);
-
+        
+   
     }
+
+   
 
     public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
         return this.delContactWithoutDelBtn(id, (Button) event.getSource());
@@ -165,41 +170,39 @@ public class ContactListController {
 
     }
 
-    // find all contacts (with firstname & lastname) that match with the search
-    // string
-    public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException {
+    // find all contacts (with firstname & lastname) that match with the search string  
+    public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException{
+        // split words with whitespace
         String[] words = newValue.split(" ");
         ArrayList<Contact> contacts = App.deserializerMethod();
         this.contactsToShow.clear();
-        // for each contact for each word in the search request
+        // for each contact for each word in the search string
         for (Contact contact : contacts) {
             for (Integer i = 0; i < words.length; i++) {
                 String word = words[i];
                 word = word.toLowerCase();
-                // found contacts that's match request
-                if ((contact.getFirstName().toLowerCase().contains(word)
-                        || contact.getLastName().toLowerCase().contains(word))
-                        && !this.contactsToShow.contains(contact)) {
-                    // if there is some keywords add only contacts that match all of them
-                    if (i == 0 || (i > 0 && this.contactsToShow.contains(contact))) {
+                // find contacts that's match search string
+                if ((contact.getFirstName().toLowerCase().contains(word) || contact.getLastName().toLowerCase().contains(word)) && !this.contactsToShow.contains(contact)){
+                    // if there is some keywords, add only contacts that match all of them
+                    // If it's the first word add all contacts that match the request
+                    if (i==0 || (i > 0 && this.contactsToShow.contains(contact))){
                         this.contactsToShow.add(contact);
-                    }
+                    }                    
                 }
                 // remove contact if it doesnt match all keywords from the request
-                else if (i > 0 && !(contact.getFirstName().toLowerCase().contains(word)
-                        || contact.getLastName().toLowerCase().contains(word))) {
+                else if (i > 0 && !(contact.getFirstName().toLowerCase().contains(word) || contact.getLastName().toLowerCase().contains(word))){
                     this.contactsToShow.remove(contact);
                 }
             }
         }
         this.gridContactList.getChildren().clear();
         this.gridContactList.add(search, 0, 0);
-        contactsToShow = (search.getText().length() < 3) ? App.deserializerMethod() : contactsToShow;
+        contactsToShow = (search.getText().length() < 3 || search.getText().isBlank()) ? App.deserializerMethod() : contactsToShow;
         this.diplaySearchResult(this.contactsToShow);
         return true;
     }
 
-    public boolean diplaySearchResult(ArrayList<Contact> contacts) {
+    public boolean diplaySearchResult(ArrayList<Contact> contacts){
         Integer row = 1; // 1 instead of 0 because the search bar is in the first row
         for (Contact contact : contacts) {
             CheckBox checkBox = new CheckBox();
@@ -248,12 +251,14 @@ public class ContactListController {
                     e.printStackTrace();
                 }
             });
+            delBtn.setMinWidth(90);
             gridContactList.add(delBtn, 4, row);
 
             Button jsonBtn = new Button("JSON 📄");
             jsonBtn.getStyleClass().add("roundedBtn");
             jsonBtn.getStyleClass().add("btn");
             jsonBtn.getStyleClass().add("jsonBtn");
+            jsonBtn.setMinWidth(80);
             gridContactList.add(jsonBtn, 5, row);
 
             Button vcfBtn = new Button("VCF 📇");
@@ -261,14 +266,7 @@ public class ContactListController {
             vcfBtn.getStyleClass().add("btn");
             vcfBtn.getStyleClass().add("vcfBtn");
             vcfBtn.getProperties().put("id", contact.getId());
-            vcfBtn.setOnAction(event -> {
-                try {
-                    this.serializeVcfContact(contact.getId(), event);
-                } catch (ClassNotFoundException | IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            });
+            vcfBtn.setMinWidth(70);
             gridContactList.add(vcfBtn, 6, row);
 
             row++;
@@ -276,9 +274,9 @@ public class ContactListController {
         return true;
     }
 
-    ////////////////// |\\\\\\\\\\\\\\\\\
+    //////////////////|\\\\\\\\\\\\\\\\\
     ///////// GETTERS & SETTERS \\\\\\\\
-    ////////////////// |\\\\\\\\\\\\\\\\\
+    //////////////////|\\\\\\\\\\\\\\\\\
 
     public TextField getSearch() {
         return this.search;
