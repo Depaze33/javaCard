@@ -44,8 +44,8 @@
                         <Label fx:id="lastNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" />
                         <Label fx:id="firstNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="1" />
                         <Label fx:id="genderLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="2" />
-                        <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdth Day *" GridPane.rowIndex="3" />
-                        <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudonym" GridPane.rowIndex="4" />
+                        <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdthday" GridPane.rowIndex="3" />
+                        <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudo" GridPane.rowIndex="4" />
                         <Label fx:id="personalPhoneLabel" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="5" />
                         <Label fx:id="proffesionalPhoneLabel" minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="6" />
                         <Label fx:id="mailLabel" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="7" />
@@ -57,8 +57,8 @@
                         <TextField fx:id="personalNumberTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" text="0606060606" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="professionalTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" text="0606060606" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="mailAddressTextField" promptText="test@test.domain" styleClass="textField" stylesheets="@style.css" text="test@test.fr" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField fx:id="gitTextField" promptText="github.com/test" styleClass="textField" stylesheets="@style.css" text="github.com/test" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" text="44 rue test 55555 labas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="gitTextField" promptText="github.com/test" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <ComboBox fx:id="comboBoxGender" prefWidth="150.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <DatePicker fx:id="birthDayTextField" prefHeight="38.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
