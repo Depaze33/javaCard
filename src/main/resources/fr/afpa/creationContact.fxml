@@ -19,12 +19,12 @@
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="186.0" styleClass="titleBtn" text="CONTACTS" />
             <Label fx:id="requiredLabel" prefHeight="20.0" prefWidth="120.0" styleClass="labelRequired" stylesheets="@style.css" text="* Required fields" textFill="#c43434" />
-            <VBox fx:id="contactInfosVBox">
+            <VBox fx:id="contactInfosVBox" alignment="TOP_CENTER">
                <children>
-                  <GridPane fx:id="contactGridPane" prefHeight="606.0" prefWidth="411.0">
+                  <GridPane fx:id="contactGridPane" alignment="TOP_CENTER" maxWidth="500.0" prefWidth="500.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.59996337890624" minWidth="20.0" prefWidth="160.7999755859375" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="310.60003662109375" prefWidth="342.4000244140625" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="55.0" vgrow="SOMETIMES" />
@@ -41,15 +41,33 @@
                     </rowConstraints>
                      <children>
                      
-                        <Label fx:id="lastNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name *" />
-                        <Label fx:id="firstNameLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name *" GridPane.rowIndex="1" />
-                        <Label fx:id="genderLabel" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender *" GridPane.rowIndex="2" />
+                        <Label fx:id="lastNameLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Last Name">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
+                        <Label fx:id="firstNameLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="First Name" GridPane.rowIndex="1">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
+                        <Label fx:id="genderLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefHeight="20.0" prefWidth="150.0" text="Gender" GridPane.rowIndex="2">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
                         <Label fx:id="birthDayLabel" minWidth="-Infinity" prefWidth="150.0" text="Birdthday" GridPane.rowIndex="3" />
                         <Label fx:id="pseudoLabel" minWidth="-Infinity" prefWidth="150.0" text="Pseudo" GridPane.rowIndex="4" />
-                        <Label fx:id="personalPhoneLabel" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone *" GridPane.rowIndex="5" />
+                        <Label fx:id="personalPhoneLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefWidth="150.0" text="Personal Phone" GridPane.rowIndex="5">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
                         <Label fx:id="proffesionalPhoneLabel" minWidth="-Infinity" prefHeight="26.0" prefWidth="165.0" text="Professionnal Phone " GridPane.rowIndex="6" />
-                        <Label fx:id="mailLabel" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress *" GridPane.rowIndex="7" />
-                        <Label fx:id="postalAdressLabel" minWidth="-Infinity" prefWidth="150.0" text="Postal Adress *" GridPane.rowIndex="8" />
+                        <Label fx:id="mailLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefWidth="150.0" text="Mail Adress" GridPane.rowIndex="7">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
+                        <Label fx:id="postalAdressLabel" contentDisplay="RIGHT" minWidth="-Infinity" prefWidth="150.0" text="Postal Adress" GridPane.rowIndex="8">
+                           <graphic>
+                              <Label contentDisplay="RIGHT" styleClass="star" text="*" />
+                           </graphic></Label>
                         <Label fx:id="gitLinkLabel" minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="9" />
                         <TextField fx:id="lastNameTextField" prefWidth="378.0" promptText="Last Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" />
                         <TextField fx:id="firstNameTextField" prefWidth="233.0" promptText="First Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -59,7 +77,7 @@
                         <TextField fx:id="mailAddressTextField" promptText="test@test.domain" styleClass="textField" stylesheets="@style.css" text="test@test.fr" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" text="44 rue test 55555 labas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="gitTextField" promptText="github.com/test" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <ComboBox fx:id="comboBoxGender" prefWidth="150.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="comboBoxGender" prefWidth="300.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <DatePicker fx:id="birthDayTextField" prefHeight="38.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>

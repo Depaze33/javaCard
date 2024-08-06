@@ -268,3 +268,7 @@
 .comboBoxGender .list-view .list-cell {
     -fx-text-fill: black;
 }
+
+.star{
+    -fx-text-fill: rgb(205, 16, 16);
+}
