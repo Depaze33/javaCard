@@ -90,6 +90,7 @@ public class CreationContactController {
 
     @FXML
     private DatePicker birthDayTextField;
+    
     @FXML
     private ComboBox<String> comboBoxGender;
 
@@ -482,6 +483,8 @@ public class CreationContactController {
         CreationContactController.id = id;
     }
 
+
+    
     // Method to save the current contact as VCard
     @FXML
     private void saveOneContactAsVCard(ActionEvent event) throws IOException {
@@ -501,6 +504,8 @@ public class CreationContactController {
         App.saveOneContactVCard(contact, filePath);
         System.out.println("Current contact saved as VCard: " + contact);
     }
+
+
 
     // Method to save all contacts as VCard
     @FXML
