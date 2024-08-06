@@ -42,82 +42,22 @@ public class ContactListController {
 
     ArrayList<Button> delBtnsArray = new ArrayList<>();
 
+    ArrayList<Contact> contactsToShow = new ArrayList<>();
+
     @FXML
     public void initialize() throws ClassNotFoundException, IOException {
 
-        ArrayList<Contact> contacts = App.deserializerMethod();
-        int row = 1; // 1 instead of 0 because the search bar is in the first row
-        for (Contact contact : contacts) {
-            CheckBox checkBox = new CheckBox();
-            checkBox.getStyleClass().add("mainGridCheckbox");
-            checkBox.getStyleClass().add("btn");
-            checkBox.getStyleClass().add("checkBoxContact");
-            checkBox.getProperties().put("id", contact.getId());
-            checkBox.setOnAction(event -> this.updateCheckBoxes());
-            gridContactList.add(checkBox, 0, row);
+        
+        this.diplaySearchResult(App.deserializerMethod());
 
-            this.checkBoxes.add(checkBox);
-
-            Label name = new Label(contact.getFirstName() + " " + contact.getLastName().toUpperCase());
-            name.getStyleClass().add("mainGridTextElement");
-            name.getStyleClass().add("mainGridTextName");
-            name.setOnMouseClicked(event -> {
-                try {
-                    this.redirectToEdit(contact.getId());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            gridContactList.add(name, 1, row);
-
-            Label email = new Label(contact.getMailAdress());
-            email.getStyleClass().add("mainGridTextElement");
-            gridContactList.add(email, 2, row);
-
-            // Get the private phone number if there is one
-            String phoneNumber = (contact.getPrivateNumber().length() > 9) ? contact.getPrivateNumber()
-                    : contact.getProfessionalNumber();
-            Label phone = new Label(phoneNumber);
-            phone.getStyleClass().add("mainGridTextElement");
-            gridContactList.add(phone, 3, row);
-
-            Button delBtn = new Button("Delete ❌");
-            delBtn.getStyleClass().add("roundedBtn");
-            delBtn.getStyleClass().add("btn");
-            delBtn.getProperties().put("id", contact.getId());
-            delBtn.getStyleClass().add("delBtn");
-            delBtnsArray.add(delBtn);
-            delBtn.setOnAction(event -> {
-                try {
-                    this.delContact(contact.getId(), event);
-                } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            gridContactList.add(delBtn, 4, row);
-
-            Button jsonBtn = new Button("JSON 📄");
-            jsonBtn.getStyleClass().add("roundedBtn");
-            jsonBtn.getStyleClass().add("btn");
-            jsonBtn.getStyleClass().add("jsonBtn");
-            gridContactList.add(jsonBtn, 5, row);
-
-            Button vcfBtn = new Button("VCF 📇");
-            vcfBtn.getStyleClass().add("roundedBtn");
-            vcfBtn.getStyleClass().add("btn");
-            vcfBtn.getStyleClass().add("vcfBtn");
-            vcfBtn.getProperties().put("id", contact.getId());
-            vcfBtn.setOnAction(event -> {
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
-            this.serializeVcfContact(contact.getId(), event);
-            } catch (Exception e) {
-            e.printStackTrace();
+                searchContacts(newValue);
+            } catch (ClassNotFoundException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            });
-            gridContactList.add(vcfBtn, 6, row);
-
-            row++;
-        }
+        });
 
     }
 
@@ -229,9 +169,109 @@ public class ContactListController {
     public void exportAllVcfSelected() {
 
     }
-    ////////////////// |\\\\\\\\\\\\\\\\\
+
+    // find all contacts (with firstname & lastname) that match with the search string  
+    public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException{
+        String[] words = newValue.split(" ");
+        ArrayList<Contact> contacts = App.deserializerMethod();
+        this.contactsToShow.clear();
+        // for each contact for each word in the search request
+        for (Contact contact : contacts) {
+            for (Integer i = 0; i < words.length; i++) {
+                String word = words[i];
+                word = word.toLowerCase();
+                // found contacts that's match request
+                if ((contact.getFirstName().toLowerCase().contains(word) || contact.getLastName().toLowerCase().contains(word)) && !this.contactsToShow.contains(contact)){
+                    // if there is some keywords add only contacts that match all of them
+                    if (i==0 || (i > 0 && this.contactsToShow.contains(contact))){
+                        this.contactsToShow.add(contact);
+                    }                    
+                }
+                // remove contact if it doesnt match all keywords from the request
+                else if (i > 0 && !(contact.getFirstName().toLowerCase().contains(word) || contact.getLastName().toLowerCase().contains(word))){
+                    this.contactsToShow.remove(contact);
+                }
+            }
+        }
+        this.gridContactList.getChildren().clear();
+        this.gridContactList.add(search, 0, 0);
+        contactsToShow = (search.getText().length() < 3) ? App.deserializerMethod() : contactsToShow;
+        this.diplaySearchResult(this.contactsToShow);
+        return true;
+    }
+
+    public boolean diplaySearchResult(ArrayList<Contact> contacts){
+        Integer row = 1; // 1 instead of 0 because the search bar is in the first row
+        for (Contact contact : contacts) {
+            CheckBox checkBox = new CheckBox();
+            checkBox.getStyleClass().add("mainGridCheckbox");
+            checkBox.getStyleClass().add("btn");
+            checkBox.getStyleClass().add("checkBoxContact");
+            checkBox.getProperties().put("id", contact.getId());
+            checkBox.setOnAction(event -> this.updateCheckBoxes());
+            gridContactList.add(checkBox, 0, row);
+
+            this.checkBoxes.add(checkBox);
+
+            Label name = new Label(contact.getFirstName() + " " + contact.getLastName().toUpperCase());
+            name.getStyleClass().add("mainGridTextElement");
+            name.getStyleClass().add("mainGridTextName");
+            name.setOnMouseClicked(event -> {
+                try {
+                    this.redirectToEdit(contact.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            gridContactList.add(name, 1, row);
+
+            Label email = new Label(contact.getMailAdress());
+            email.getStyleClass().add("mainGridTextElement");
+            gridContactList.add(email, 2, row);
+
+            // Get the private phone number if there is one
+            String phoneNumber = (contact.getPrivateNumber().length() > 9) ? contact.getPrivateNumber()
+                    : contact.getProfessionalNumber();
+            Label phone = new Label(phoneNumber);
+            phone.getStyleClass().add("mainGridTextElement");
+            gridContactList.add(phone, 3, row);
+
+            Button delBtn = new Button("Delete ❌");
+            delBtn.getStyleClass().add("roundedBtn");
+            delBtn.getStyleClass().add("btn");
+            delBtn.getProperties().put("id", contact.getId());
+            delBtn.getStyleClass().add("delBtn");
+            delBtnsArray.add(delBtn);
+            delBtn.setOnAction(event -> {
+                try {
+                    this.delContact(contact.getId(), event);
+                } catch (ClassNotFoundException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            gridContactList.add(delBtn, 4, row);
+
+            Button jsonBtn = new Button("JSON 📄");
+            jsonBtn.getStyleClass().add("roundedBtn");
+            jsonBtn.getStyleClass().add("btn");
+            jsonBtn.getStyleClass().add("jsonBtn");
+            gridContactList.add(jsonBtn, 5, row);
+
+            Button vcfBtn = new Button("VCF 📇");
+            vcfBtn.getStyleClass().add("roundedBtn");
+            vcfBtn.getStyleClass().add("btn");
+            vcfBtn.getStyleClass().add("vcfBtn");
+            vcfBtn.getProperties().put("id", contact.getId());
+            gridContactList.add(vcfBtn, 6, row);
+
+            row++;
+        }
+        return true;
+    }
+
+    //////////////////|\\\\\\\\\\\\\\\\\
     ///////// GETTERS & SETTERS \\\\\\\\
-    ////////////////// |\\\\\\\\\\\\\\\\\
+    //////////////////|\\\\\\\\\\\\\\\\\
 
     public TextField getSearch() {
         return this.search;
