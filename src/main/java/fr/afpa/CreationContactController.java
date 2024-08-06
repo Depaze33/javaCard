@@ -94,9 +94,9 @@ public class CreationContactController {
             Contact contact = Contact.findContactById(id);
 
             // fill each field & disable them
-            lastNameTextField.setText(contact.getFirstName());
+            lastNameTextField.setText(contact.getLastName());
             lastNameTextField.setDisable(true);
-            firstNameTextField.setText(contact.getLastName());
+            firstNameTextField.setText(contact.getFirstName());
             firstNameTextField.setDisable(true);
             genderMenuButton.setText(contact.getGender());
             genderMenuButton.setDisable(true);
