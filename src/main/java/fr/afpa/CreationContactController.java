@@ -182,7 +182,7 @@ public class CreationContactController {
 
         String firstName = firstNameTextField.getText();
         String gender = comboBoxGender.getPromptText();
-        LocalDate birthDate = LocalDate.now();
+        LocalDate birthDate = birthDayTextField.getValue();
         String pseudo = pseudoTextField.getText();
         String personalNumber = personalNumberTextField.getText();
         String professionalNumber = professionalTextField.getText();

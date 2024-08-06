@@ -35,7 +35,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
         throw new UnsupportedOperationException("unsused method");
 
     }
-/**
+    /**
      * 
      * @param filePath
      * 
