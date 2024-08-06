@@ -107,12 +107,49 @@ public class ContactListController {
             vcfBtn.getStyleClass().add("btn");
             vcfBtn.getStyleClass().add("vcfBtn");
             vcfBtn.getProperties().put("id", contact.getId());
+            vcfBtn.setOnAction(event -> {
+            try {
+            this.serializeVcfContact(contact.getId(), event);
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+            });
             gridContactList.add(vcfBtn, 6, row);
 
             row++;
         }
 
     }
+
+    private void serializeVcfContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
+        Contact contact = Contact.findContactById(id);
+        ContactVCardSerializer serializer = new ContactVCardSerializer();
+        serializer.save( contact.getFirstName()+contact.getLastName()+".vcf", contact);
+       
+
+    }
+
+    @FXML
+    private void exportAllVcfSelected(ActionEvent event) throws ClassNotFoundException, IOException {
+
+    ArrayList<Contact> contactsSerializerList = new ArrayList<>();
+        ArrayList<Contact> contacts = App.deserializerMethod();
+
+        for (CheckBox checkBox : this.checkBoxes) {
+            if (checkBox.isSelected()) {
+
+                String id = (String) checkBox.getProperties().get("id");
+                Contact contact = Contact.findContactById(id);
+                contactsSerializerList.add(contact);
+            }
+        }
+        ContactVCardSerializer serializer = new ContactVCardSerializer();
+        serializer.saveList("contacts.vcf", contactsSerializerList);
+        
+   
+    }
+
+   
 
     public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
         return this.delContactWithoutDelBtn(id, (Button) event.getSource());

@@ -29,9 +29,7 @@ public class ContactVCardSerializer implements Serializer<Contact> {
         vCard.append("BEGIN:VCARD\n");
         vCard.append("VERSION:4.0\n");
 
-        vCard.append("LAST NAME:").append(contact.getLastName()).append("\n");
-        vCard.append("FIRST NAME:").append(contact.getFirstName()).append("\n");
-        vCard.append("GENDER:").append(contact.getGender()).append("\n");
+        vCard.append("N:").append(contact.getLastName()).append(contact.getFirstName()).append(";;").append(contact.getGender()).append(";").append("\n");
         vCard.append("PSEUDONYME:").append(contact.getPseudo()).append("\n");
         vCard.append("TEL;TYPE=WORK,VOICE:").append(contact.getProfessionalNumber()).append("\n");
         vCard.append("TEL;TYPE=HOME,VOICE:").append(contact.getPrivateNumber()).append("\n");
