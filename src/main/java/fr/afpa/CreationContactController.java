@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
@@ -59,7 +60,7 @@ public class CreationContactController {
     private MenuButton genderMenuButton;
 
     @FXML
-    private TextField birthDayTextField;
+    private DatePicker birthDayTextField;
 
     @FXML
     private TextField pseudoTextField;
@@ -100,7 +101,7 @@ public class CreationContactController {
             firstNameTextField.setDisable(true);
             genderMenuButton.setText(contact.getGender());
             genderMenuButton.setDisable(true);
-            birthDayTextField.setText(contact.getBirthDate().toString());
+            birthDayTextField.setValue(contact.getBirthDate());
             birthDayTextField.setDisable(true);
             pseudoTextField.setText(contact.getPseudo());
             pseudoTextField.setDisable(true);
@@ -141,8 +142,7 @@ public class CreationContactController {
         String lastName = lastNameTextField.getText();
         String firstName = firstNameTextField.getText();
         String gender = genderMenuButton.getText();
-        LocalDate birthDate = LocalDate.parse(birthDayTextField.getText(), 
-        DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate birthDate = birthDayTextField.getValue(); 
         String pseudo = pseudoTextField.getText();
         String personnalNumber = personalNumberTextField.getText();
         String professionalNumber = professionalTextField.getText();
@@ -313,11 +313,11 @@ public class CreationContactController {
         this.genderMenuButton = genderMenuButton;
     }
 
-    public TextField getBirthDayTextField() {
+    public DatePicker getBirthDayTextField() {
         return this.birthDayTextField;
     }
 
-    public void setBirthDayTextField(TextField birthDayTextField) {
+    public void setBirthDayTextField(DatePicker birthDayTextField) {
         this.birthDayTextField = birthDayTextField;
     }
 
