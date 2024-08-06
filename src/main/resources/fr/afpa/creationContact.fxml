@@ -18,6 +18,7 @@
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="186.0" styleClass="titleBtn" text="CONTACTS" />
             <Label fx:id="requiredLabel" prefHeight="20.0" prefWidth="120.0" styleClass="labelRequired" stylesheets="@style.css" text="* Required fields" textFill="#c43434" />
+            <Label prefHeight="26.0" prefWidth="99.0" />
             <VBox fx:id="contactInfosVBox" prefHeight="652.0" prefWidth="402.0">
                <children>
                   <GridPane fx:id="contactGridPane" prefHeight="606.0" prefWidth="411.0">
