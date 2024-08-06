@@ -256,6 +256,22 @@
     -fx-background-radius: 0 20 20 0;
 }
 
+
+.date-picker > .editor:disabled {
+    -fx-background-color:  white;
+    -fx-opacity: 1.0;
+    
+
+}
+
+.date-picker:disabled {
+    -fx-opacity: 1.0;
+}
+
+.date-picker > .date-picker-display-node:disabled {
+    -fx-opacity: 1.0;
+}
+
 .labelRequired {
     -fx-text-fill: #c43434;
 }

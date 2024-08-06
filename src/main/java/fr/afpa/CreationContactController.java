@@ -131,6 +131,7 @@ public class CreationContactController {
         // buttonExportVCard.setVisible(false);
         buttonEdit.setVisible(false);
         buttonDelete.setVisible(false);
+        birthDayTextField.getEditor().setDisable(true);
 
         // add elemetns to gender ComboBox
         ObservableList<String> genders = FXCollections.observableArrayList();
