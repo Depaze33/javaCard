@@ -11,6 +11,12 @@ import com.fasterxml.jackson.annotation.*;
 
 @JsonRootName(value = "contact")
 public class Contact implements Serializable {
+    public static final ContactBinaryManager<Contact> BINARY_MANAGER = new ContactBinaryManager<>();
+    public static final ContactJsonSerialiazer JSON_SERIALIAZER = new ContactJsonSerialiazer();
+    public static final ContactVCardSerializer V_CARD_SERIALIZER = new ContactVCardSerializer();
+
+    public static final String SAVE_PATH = "contacts.ser";
+
     private String lastName;
     private String firstName;
     private String gender;
@@ -40,6 +46,10 @@ public class Contact implements Serializable {
         this.github = github;
         this.id = this.generateID();
 
+    }
+
+    public String generateOneContactSaveName(){
+        return this.firstName + this.lastName;
     }
 
     public String getLastName() {
@@ -149,7 +159,7 @@ public class Contact implements Serializable {
     }
 
     public static Contact findContactById(String id) throws ClassNotFoundException, IOException {
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
         for (Contact contact : contacts) {
             if (contact.getId().equals(id)){
                 return contact;
@@ -162,7 +172,7 @@ public class Contact implements Serializable {
     // Get the pos of an element of the list thx to the id
     public static Integer findContactPosById(String id) throws ClassNotFoundException, IOException {
 
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
         for (Integer i =0; i< contacts.size(); i++) {
             // if the Contact at the current pos (i) match the right id 
             if (contacts.get(i).getId().equals(id)){

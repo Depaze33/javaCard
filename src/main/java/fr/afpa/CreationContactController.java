@@ -223,7 +223,7 @@ public class CreationContactController {
         String git = gitTextField.getText();
 
         // Load existing contacts
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
 
         // Reset error message if validation passes
 
@@ -289,7 +289,7 @@ public class CreationContactController {
                 // Add the new contact to the list
                 contacts.add(newContact);
                 // Save the updated list of contacts
-                App.serializerMethode(contacts);
+                Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
             }
             // if edit
             else {
@@ -306,7 +306,7 @@ public class CreationContactController {
                 Integer contactPos = Contact.findContactPosById(id);
                 contacts.set(contactPos, contactToEdit);
                 // Save the updated list of contacts
-                App.serializerMethode(contacts);
+                Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
             }
 
             App.setRoot("contactList");
@@ -356,12 +356,11 @@ public class CreationContactController {
             switch (type) {
                 case "vcf":
                     filePath = filePath+"."+type;
-                    ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
-                    vCardSerializer.save(filePath, contact);
+                    Contact.V_CARD_SERIALIZER.save(filePath, contact);
                     break;
                 case "json":
                     filePath = filePath+"."+type;
-                    App.saveContactJson(contact, filePath);
+                    Contact.JSON_SERIALIAZER.save(filePath, contact);
                     break;
                 default:
                     break;
@@ -376,14 +375,10 @@ public class CreationContactController {
 
     // Method to save all contacts as VCard
     @FXML
-    private void saveAllContactsAsVCard(ActionEvent event) {
-        try {
-            ArrayList<Contact> contacts = App.deserializerMethod();
+    private void saveAllContactsAsVCard(ActionEvent event) throws IOException {
+            ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
             String filePath = "contacts.vcf";
-            App.saveContactsAsVCard(contacts, filePath);
+            Contact.V_CARD_SERIALIZER.saveList(filePath, contacts);
             System.out.println("All contacts saved as VCard.");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }
