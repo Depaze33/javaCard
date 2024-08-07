@@ -58,36 +58,34 @@ public class ContactListController {
 
     @FXML
     public void exportAllJsonSelected() throws ClassNotFoundException, IOException {
-        ArrayList<Contact> contactsSerializerList = new ArrayList<>();
-
-        for (CheckBox checkBox : this.checkBoxes) {
-            if (checkBox.isSelected()) {
-
-                String id = (String) checkBox.getProperties().get("id");
-                Contact contact = Contact.findContactById(id);
-                contactsSerializerList.add(contact);
-            }
-        }
-        ContactJsonSerialiazer serializer = new ContactJsonSerialiazer();
-        serializer.saveList("contacts.json", contactsSerializerList);
-        System.out.println("contacts exported to \"contacts.json\"");
+        exportAllSelected("json");
     }
 
     @FXML
     public void exportAllVcfSelected() throws ClassNotFoundException, IOException {
+        exportAllSelected("vcf");
+
+    }
+
+    // export the contacts in the argument type
+    public void exportAllSelected(String type) throws ClassNotFoundException, IOException {
+        // get the right serializer
+        var serializer = (type.equals("json")) ? Contact.JSON_SERIALIAZER : Contact.V_CARD_SERIALIZER;
         ArrayList<Contact> contactsSerializerList = new ArrayList<>();
 
+
+        // get the selected contacts
         for (CheckBox checkBox : this.checkBoxes) {
             if (checkBox.isSelected()) {
-
                 String id = (String) checkBox.getProperties().get("id");
                 Contact contact = Contact.findContactById(id);
                 contactsSerializerList.add(contact);
             }
         }
-        ContactVCardSerializer serializer = new ContactVCardSerializer();
-        serializer.saveList("contacts.vcf", contactsSerializerList);
-        System.out.println("contacts exported to \"contacts.vcf\"");
+
+        // serialize
+        serializer.saveList(Contact.SAVE_PATH, contactsSerializerList);
+        System.out.println("contacts exported to \"contacts."+type+"\"");
     }
 
     @FXML
@@ -95,17 +93,15 @@ public class ContactListController {
         double scrollPaneWidth = this.scrollPane.getWidth();
         this.gridContactList.setMaxWidth(scrollPaneWidth-30);
         
+        // responsive width adaption for the gridPane
         this.scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             this.resizeGrid((double) newVal-30);
-       });
+       });    
        
-       
-        // this.gridContactList.
-
         this.gridContactList.getColumnConstraints().get(1).setMinWidth(100);
         this.gridContactList.getColumnConstraints().get(2).setMinWidth(100);
         this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
-        this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);;
+        this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);
 
         this.diplaySearchResult(Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH));
 
@@ -119,6 +115,7 @@ public class ContactListController {
 
     }
 
+    // grid fits the scrollPane, MAX 900px
     public void resizeGrid(double maxWidth){
         maxWidth = (maxWidth < 900) ? maxWidth : 900; 
         this.gridContactList.setMaxWidth(maxWidth);
@@ -140,23 +137,29 @@ public class ContactListController {
     } 
    
 
-    public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
-        return this.delContactWithoutDelBtn(id, (Button) event.getSource());
+    // delete one contact (call delContacts with an arraylist that contains 1 contact)
+    public boolean delContact(String id) throws ClassNotFoundException, IOException {
+        ArrayList<String> contactsIds = new ArrayList<>();
+        contactsIds.add(id);
+        return this.delContacts(contactsIds);
     }
 
     // del contact from binary & from view
-    public boolean delContactWithoutDelBtn(String id, Button delBtn) throws ClassNotFoundException, IOException {
-        Integer rowId = GridPane.getRowIndex(delBtn);
+    public boolean delContacts(ArrayList<String> contactsIds) throws ClassNotFoundException, IOException {
 
+        
         // get the contact object to del
         ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
-        contacts.removeIf(c -> c.getId().equals(id));
+        contacts.removeIf(contact -> contactsIds.contains(contact.getId()));
+        this.checkBoxes.removeIf(checkbox -> contactsIds.contains(checkbox.getProperties().get("id")));
 
+
+        this.selectedIds = new ArrayList<>();
         // update list view
         this.gridContactList.getChildren().clear();
         this.gridContactList.add(search, 0, 0);
         this.diplaySearchResult(contacts);
-        App.serializerMethode(contacts);
+        Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
         this.updateCheckBoxes();
         return true;
     }
@@ -177,15 +180,10 @@ public class ContactListController {
         }
 
         // show btn in case there is at least 1 contact selected
-        if (this.selectedIds.size() > 0) {
-            this.delAllBtn.setDisable(false);
-            this.jsonAllBtn.setDisable(false);
-            this.vcfAllBtn.setDisable(false);
-        } else {
-            this.delAllBtn.setDisable(true);
-            this.jsonAllBtn.setDisable(true);
-            this.vcfAllBtn.setDisable(true);
-        }
+        Boolean isDisable = (this.selectedIds.size() > 0) ? false : true;
+        this.delAllBtn.setDisable(isDisable);
+        this.jsonAllBtn.setDisable(isDisable);
+        this.vcfAllBtn.setDisable(isDisable);
 
         return true;
     }
@@ -193,16 +191,18 @@ public class ContactListController {
     // delete all selcted contact from the list + persist
     public void deleteAllSelected() throws ClassNotFoundException, IOException {
         // iterate on all del buttons
-        for (Button delBtn : this.delBtnsArray) {
-            // If there is at least 1 id selected & if the delete btn has the right contact
-            // id
+        ArrayList <String> contactsToDel = new ArrayList<>();
+        System.out.println(delBtnsArray.size());
+        // add each id of contacts to del 
+        delBtnsArray.forEach(delBtn -> {
             if (!this.selectedIds.isEmpty() && this.selectedIds.contains(delBtn.getProperties().get("id").toString())) {
-                // delete contact
-                this.delContactWithoutDelBtn(delBtn.getProperties().get("id").toString(), delBtn);
+                contactsToDel.add(delBtn.getProperties().get("id").toString());
             }
-        }
+        });
+       this.delContacts(contactsToDel);
     }
 
+    // redirect with the id
     public boolean redirectToEdit(String id) throws IOException {
         CreationContactController.setId(id);
         App.setRoot("CreationContact");
@@ -243,6 +243,7 @@ public class ContactListController {
         return true;
     }
 
+    // display contacts in the grid
     public boolean diplaySearchResult(ArrayList<Contact> contacts){
         Integer row = 1; // 1 instead of 0 because the search bar is in the first row
         for (Contact contact : contacts) {
@@ -288,7 +289,7 @@ public class ContactListController {
             delBtnsArray.add(delBtn);
             delBtn.setOnAction(event -> {
                 try {
-                    this.delContact(contact.getId(), event);
+                    this.delContact(contact.getId());
                 } catch (ClassNotFoundException | IOException e) {
                     e.printStackTrace();
                 }

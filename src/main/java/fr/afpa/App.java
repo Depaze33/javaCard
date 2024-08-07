@@ -37,46 +37,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void serializerMethode(ArrayList<Contact> contacts) {
-        final ContactBinaryManager binaryManager = new ContactBinaryManager();
 
-        try {
-            // Save contacts to binary file
-            String binaryFilePath = "contacts.ser";
-            binaryManager.saveList(binaryFilePath, contacts);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Save a single contact as VCard
-    public static void saveOneContactVCard(Contact contact, String filePath) {
-        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
-        try {
-            vCardSerializer.save(filePath, contact);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Save a list of contacts as VCard
-    public static void saveContactsAsVCard(ArrayList<Contact> contacts, String filePath) {
-        ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
-        try {
-            vCardSerializer.saveList(filePath, contacts);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void serializerMethode(Contact contact, String filePath) {
-        throw new UnsupportedOperationException("Unimplemented method 'serializerMethode'");
-    }
-
-    public static boolean saveContactJson(Contact contact, String filepath) throws IOException{
-        ContactJsonSerialiazer jsonSerializer = new ContactJsonSerialiazer();
-        jsonSerializer.save(filepath, contact);
-        return true;
-    }
 }
