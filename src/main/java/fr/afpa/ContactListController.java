@@ -147,15 +147,15 @@ public class ContactListController {
     // del contact from binary & from view
     public boolean delContactWithoutDelBtn(String id, Button delBtn) throws ClassNotFoundException, IOException {
         Integer rowId = GridPane.getRowIndex(delBtn);
-        // del the row whit all cells
-        // remove checkbox from the arrayList
-        this.checkBoxes.removeIf(checkbox -> checkbox.getProperties().get("id").equals(id));
-        gridContactList.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowId);
+
         // get the contact object to del
         ArrayList<Contact> contacts = App.deserializerMethod();
-
         contacts.removeIf(c -> c.getId().equals(id));
 
+        // update list view
+        this.gridContactList.getChildren().clear();
+        this.gridContactList.add(search, 0, 0);
+        this.diplaySearchResult(contacts);
         App.serializerMethode(contacts);
         this.updateCheckBoxes();
         return true;
