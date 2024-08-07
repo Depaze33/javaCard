@@ -7,6 +7,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Fixtures {
 
+    public void fixtures(){
+        generateFixtures();
+    }
+
     public static void generateFixtures(){
         ArrayList<Contact> contacts = new ArrayList<>();
         String[] names = {"Aaron", "Caitlin", "Mazda", "Bianca", "Brunehilde", "Betsie", "Fabricio", "accessories", "accompaniments", "accouterments", "appliances", "appurtenances", "articles", "attachments", "baggage", "belongings", "contraptions", "contrivances", "devices", "equipage", "facilities", "fittings", "gadgets", "habiliments", "impedimenta", "materiel", "outfit", "paraphernalia", "provisions", "rig", "setup", "shebang", "stock", "store", "stuff", "tackle", "things", "tools", "trappings", "traps", "utensils"};
@@ -31,7 +35,7 @@ public class Fixtures {
 
 
             contacts.add(new Contact(firstName, lastName, gender, LocalDate.now(),
-            "Mimi", phone.toString(), phone.toString(), firstName+lastName+"@gmail.com",
+            names[randInt(names.length-1)], phone.toString(), phone.toString(), firstName+lastName+"@gmail.com",
             randInt(100)+ " rue des "+ names[randInt(names.length-1)]+ " "+ zip +" "+names[randInt(names.length-1)], "https://github.com/"+firstName+lastName));
 
         }
@@ -46,8 +50,6 @@ public class Fixtures {
 
     public static Integer randInt(Integer min, Integer max) {
 
-    int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1 );
-
-    return randomNum;
+    return ThreadLocalRandom.current().nextInt(min, max + 1 );
 }
 }

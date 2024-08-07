@@ -45,6 +45,40 @@ public class ContactListController {
     ArrayList<Contact> contactsToShow = new ArrayList<>();
 
     @FXML
+    public void exportAllJsonSelected() throws ClassNotFoundException, IOException {
+        ArrayList<Contact> contactsSerializerList = new ArrayList<>();
+
+        for (CheckBox checkBox : this.checkBoxes) {
+            if (checkBox.isSelected()) {
+
+                String id = (String) checkBox.getProperties().get("id");
+                Contact contact = Contact.findContactById(id);
+                contactsSerializerList.add(contact);
+            }
+        }
+        ContactJsonSerialiazer serializer = new ContactJsonSerialiazer();
+        serializer.saveList("contacts.json", contactsSerializerList);
+        System.out.println("contacts exported to \"contacts.json\"");
+    }
+
+    @FXML
+    public void exportAllVcfSelected() throws ClassNotFoundException, IOException {
+        ArrayList<Contact> contactsSerializerList = new ArrayList<>();
+
+        for (CheckBox checkBox : this.checkBoxes) {
+            if (checkBox.isSelected()) {
+
+                String id = (String) checkBox.getProperties().get("id");
+                Contact contact = Contact.findContactById(id);
+                contactsSerializerList.add(contact);
+            }
+        }
+        ContactVCardSerializer serializer = new ContactVCardSerializer();
+        serializer.saveList("contacts.vcf", contactsSerializerList);
+        System.out.println("contacts exported to \"contacts.vcf\"");
+    }
+
+    @FXML
     public void initialize() throws ClassNotFoundException, IOException {
 
         
@@ -61,33 +95,7 @@ public class ContactListController {
 
     }
 
-    private void serializeVcfContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
-        Contact contact = Contact.findContactById(id);
-        ContactVCardSerializer serializer = new ContactVCardSerializer();
-        serializer.save( contact.getFirstName()+contact.getLastName()+".vcf", contact);
-       
 
-    }
-
-    @FXML
-    private void exportAllVcfSelected(ActionEvent event) throws ClassNotFoundException, IOException {
-
-    ArrayList<Contact> contactsSerializerList = new ArrayList<>();
-        ArrayList<Contact> contacts = App.deserializerMethod();
-
-        for (CheckBox checkBox : this.checkBoxes) {
-            if (checkBox.isSelected()) {
-
-                String id = (String) checkBox.getProperties().get("id");
-                Contact contact = Contact.findContactById(id);
-                contactsSerializerList.add(contact);
-            }
-        }
-        ContactVCardSerializer serializer = new ContactVCardSerializer();
-        serializer.saveList("contacts.vcf", contactsSerializerList);
-        
-   
-    }
 
    
 
@@ -99,22 +107,15 @@ public class ContactListController {
     public boolean delContactWithoutDelBtn(String id, Button delBtn) throws ClassNotFoundException, IOException {
         Integer rowId = GridPane.getRowIndex(delBtn);
         // del the row whit all cells
-        // TODO : check if there is a way to remove space gap the deleted row
         // remove checkbox from the arrayList
         this.checkBoxes.removeIf(checkbox -> checkbox.getProperties().get("id").equals(id));
         gridContactList.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowId);
-        Contact contactToDel = Contact.findContactById(id);
         // get the contact object to del
         ArrayList<Contact> contacts = App.deserializerMethod();
 
-        ArrayList<Contact> newContacts = new ArrayList<>();
-        for (Contact contact : contacts) {
-            if (id.compareTo(contact.getId()) != 0) {
-                newContacts.add(contact);
-            }
-        }
-        // persist datas in binary file
-        App.serializerMethode(newContacts);
+        contacts.removeIf(c -> c.getId().equals(id));
+
+        App.serializerMethode(contacts);
         this.updateCheckBoxes();
         return true;
     }
@@ -162,13 +163,6 @@ public class ContactListController {
         return true;
     }
 
-    public void exportAllJsonSelected() {
-
-    }
-
-    public void exportAllVcfSelected() {
-
-    }
 
     // find all contacts (with firstname & lastname) that match with the search string  
     public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException{
@@ -274,73 +268,7 @@ public class ContactListController {
         return true;
     }
 
-    //////////////////|\\\\\\\\\\\\\\\\\
-    ///////// GETTERS & SETTERS \\\\\\\\
-    //////////////////|\\\\\\\\\\\\\\\\\
-
-    public TextField getSearch() {
-        return this.search;
-    }
-
-    public void setSearch(TextField search) {
-        this.search = search;
-    }
-
-    public VBox getCenterPane() {
-        return this.centerPane;
-    }
-
-    public void setCenterPane(VBox centerPane) {
-        this.centerPane = centerPane;
-    }
-
-    public HBox getDelExportBtns() {
-        return this.delExportBtns;
-    }
-
-    public void setDelExportBtns(HBox delExportBtns) {
-        this.delExportBtns = delExportBtns;
-    }
-
-    public GridPane getGridContactList() {
-        return this.gridContactList;
-    }
-
-    public void setGridContactList(GridPane gridContactList) {
-        this.gridContactList = gridContactList;
-    }
-
-    public Button getDelAllBtn() {
-        return this.delAllBtn;
-    }
-
-    public void setDelAllBtn(Button delAllBtn) {
-        this.delAllBtn = delAllBtn;
-    }
-
-    public Button getJsonAllBtn() {
-        return this.jsonAllBtn;
-    }
-
-    public void setJsonAllBtn(Button jsonAllBtn) {
-        this.jsonAllBtn = jsonAllBtn;
-    }
-
-    public Button getVcfAllBtn() {
-        return this.vcfAllBtn;
-    }
-
-    public void setVcfAllBtn(Button vcfAllBtn) {
-        this.vcfAllBtn = vcfAllBtn;
-    }
-
-    public ArrayList<CheckBox> getCheckBoxes() {
-        return this.checkBoxes;
-    }
-
-    public void setCheckBoxes(ArrayList<CheckBox> checkBoxes) {
-        this.checkBoxes = checkBoxes;
-    }
+    
 
     public ArrayList<String> getSelectedIds() {
         return this.selectedIds;
@@ -350,11 +278,4 @@ public class ContactListController {
         this.selectedIds = selectedIds;
     }
 
-    public ArrayList<Button> getDelBtnsArray() {
-        return this.delBtnsArray;
-    }
-
-    public void setDelBtnsArray(ArrayList<Button> delBtnsArray) {
-        this.delBtnsArray = delBtnsArray;
-    }
 }

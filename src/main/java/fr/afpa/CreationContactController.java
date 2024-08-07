@@ -2,19 +2,16 @@ package fr.afpa;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -120,18 +117,37 @@ public class CreationContactController {
 
     public static String id = null;
 
+    public static String getId() {
+        return CreationContactController.id;
+    }
+
+    public static void setId(String id) {
+        CreationContactController.id = id;
+    }
+
     public void initialize() throws ClassNotFoundException, IOException {
-
-        // ONLY DEBUG CODE
-
-        ////
-
         // hide the edit button
 
-        // buttonExportVCard.setVisible(false);
         buttonEdit.setVisible(false);
         buttonDelete.setVisible(false);
         birthDayTextField.getEditor().setDisable(true);
+
+        buttonExportVCard.setOnAction(event -> {
+            try {
+                this.saveOneContact("vcf");
+            } catch (ClassNotFoundException | IOException e) {
+                e.printStackTrace();
+            }
+       
+        });
+        buttonExportJson.setOnAction(event -> {
+            try {
+                this.saveOneContact("json");
+            } catch (ClassNotFoundException | IOException e) {
+                e.printStackTrace();
+            }
+       
+        });
 
         // add elemetns to gender ComboBox
         ObservableList<String> genders = FXCollections.observableArrayList();
@@ -143,11 +159,25 @@ public class CreationContactController {
 
         // fill contact infos if it's an edit
         if (id != null) {
-            // buttonExportVCard.setVisible(false);
             buttonEdit.setVisible(true);
             buttonDelete.setVisible(true);
             // get the contact obj thx to the id
             Contact contact = Contact.findContactById(id);
+            buttonExportVCard.setOnAction(event -> {
+                    try {
+                        this.saveOneContact(contact, "vcf");
+                    } catch (ClassNotFoundException | IOException e) {
+                        e.printStackTrace();
+                    }
+            });
+            buttonExportJson.setOnAction(event -> {
+                    try {
+                        System.out.println("test");
+                        this.saveOneContact(contact, "json");
+                    } catch (ClassNotFoundException | IOException e) {
+                        e.printStackTrace();
+                    }
+            });
 
             // fill each field & disable them
             lastNameTextField.setText(contact.getLastName());
@@ -208,11 +238,6 @@ public class CreationContactController {
             firstNameLabel.getStyleClass().add("labelRequired");
             error = true;
         }
-
-        // if (birthDate == null || !birthDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-        // // The date is null or doesn't match the format YYYY-MM-DD
-        // birthDayLabel.getStyleClass().add("labelRequired");
-        // }
 
         if (personalNumber.trim().isEmpty() ||
                 !personalNumber.matches(
@@ -308,202 +333,43 @@ public class CreationContactController {
         return true;
     }
 
-    public VBox getCenterPane() {
-        return this.centerPane;
-    }
 
-    public void setCenterPane(VBox centerPane) {
-        this.centerPane = centerPane;
-    }
-
-    public HBox getModificationContactBox() {
-        return this.modificationContactBox;
-    }
-
-    public void setModificationContactBox(HBox modificationContactBox) {
-        this.modificationContactBox = modificationContactBox;
-    }
-
-    public VBox getContactInfosVBox() {
-        return this.contactInfosVBox;
-    }
-
-    public void setContactInfosVBox(VBox contactInfosVBox) {
-        this.contactInfosVBox = contactInfosVBox;
-    }
-
-    public GridPane getContactGridPane() {
-        return this.contactGridPane;
-    }
-
-    public void setContactGridPane(GridPane contactGridPane) {
-        this.contactGridPane = contactGridPane;
-    }
-
-    public GridPane getButtonGridPane() {
-        return this.buttonGridPane;
-    }
-
-    public void setButtonGridPane(GridPane buttonGridPane) {
-        this.buttonGridPane = buttonGridPane;
-    }
-
-    public Button getButtonExportJson() {
-        return this.buttonExportJson;
-    }
-
-    public void setButtonExportJson(Button buttonExportJson) {
-        this.buttonExportJson = buttonExportJson;
-    }
-
-    public Button getButtonExportVCard() {
-        return this.buttonExportVCard;
-    }
-
-    public void setButtonExportVCard(Button buttonExportVCard) {
-        this.buttonExportVCard = buttonExportVCard;
-    }
-
-    public Button getButtonSave() {
-        return this.buttonSave;
-    }
-
-    public void setButtonSave(Button buttonSave) {
-        this.buttonSave = buttonSave;
-    }
-
-    public Button getButtonEdit() {
-        return this.buttonEdit;
-    }
-
-    public void setButtonEdit(Button buttonEdit) {
-        this.buttonEdit = buttonEdit;
-    }
-
-    public Button getButtonDelete() {
-        return this.buttonDelete;
-    }
-
-    public void setButtonDelete(Button buttonDelete) {
-        this.buttonDelete = buttonDelete;
-    }
-
-    public Label getRequiredLabel() {
-        return this.requiredLabel;
-    }
-
-    public void setRequiredLabel(Label requiredLabel) {
-        this.requiredLabel = requiredLabel;
-    }
-
-    public TextField getLastNameTextField() {
-        return this.lastNameTextField;
-    }
-
-    public void setLastNameTextField(TextField lastNameTextField) {
-        this.lastNameTextField = lastNameTextField;
-    }
-
-    public TextField getFirstNameTextField() {
-        return this.firstNameTextField;
-    }
-
-    public void setFirstNameTextField(TextField firstNameTextField) {
-        this.firstNameTextField = firstNameTextField;
-    }
-
-    public DatePicker getBirthDayTextField() {
-        return this.birthDayTextField;
-    }
-
-    public void setBirthDayTextField(DatePicker birthDayTextField) {
-        this.birthDayTextField = birthDayTextField;
-    }
-
-    public TextField getPseudoTextField() {
-        return this.pseudoTextField;
-    }
-
-    public void setPseudoTextField(TextField pseudoTextField) {
-        this.pseudoTextField = pseudoTextField;
-    }
-
-    public TextField getPersonalNumberTextField() {
-        return this.personalNumberTextField;
-    }
-
-    public void setPersonalNumberTextField(TextField personalNumberTextField) {
-        this.personalNumberTextField = personalNumberTextField;
-    }
-
-    public TextField getProfessionalTextField() {
-        return this.professionalTextField;
-    }
-
-    public void setProfessionalTextField(TextField professionalTextField) {
-        this.professionalTextField = professionalTextField;
-    }
-
-    public TextField getMailAddressTextField() {
-        return this.mailAddressTextField;
-    }
-
-    public void setMailAddressTextField(TextField mailAddressTextField) {
-        this.mailAddressTextField = mailAddressTextField;
-    }
-
-    public TextField getPostalAddressTextField() {
-        return this.postalAddressTextField;
-    }
-
-    public void setPostalAddressTextField(TextField postalAddressTextField) {
-        this.postalAddressTextField = postalAddressTextField;
-    }
-
-    public TextField getGitTextField() {
-        return this.gitTextField;
-    }
-
-    public void setGitTextField(TextField gitTextField) {
-        this.gitTextField = gitTextField;
-    }
-
-    public Button getSaveButton() {
-        return this.saveButton;
-    }
-
-    public void setSaveButton(Button saveButton) {
-        this.saveButton = saveButton;
-    }
-
-    public static String getId() {
-        return CreationContactController.id;
-    }
-
-    public static void setId(String id) {
-        CreationContactController.id = id;
-    }
-
-
-    
-    // Method to save the current contact as VCard
-    @FXML
-    private void saveOneContactAsVCard(ActionEvent event) throws IOException {
+    private boolean saveOneContact(String type) throws ClassNotFoundException, IOException{
         Contact contact = new Contact(
-                lastNameTextField.getText(),
-                firstNameTextField.getText(),
-                comboBoxGender.getSelectionModel().getSelectedItem(),
-                birthDayTextField.getValue(),
-                pseudoTextField.getText(),
-                personalNumberTextField.getText(),
-                professionalTextField.getText(),
-                mailAddressTextField.getText(),
-                postalAddressTextField.getText(),
-                gitTextField.getText());
-
-        String filePath = "Onecontact.vcf";
-        App.saveOneContactVCard(contact, filePath);
-        System.out.println("Current contact saved as VCard: " + contact);
+                    lastNameTextField.getText(),
+                    firstNameTextField.getText(),
+                    comboBoxGender.getSelectionModel().getSelectedItem(),
+                    birthDayTextField.getValue(),
+                    pseudoTextField.getText(),
+                    personalNumberTextField.getText(),
+                    professionalTextField.getText(),
+                    mailAddressTextField.getText(),
+                    postalAddressTextField.getText(),
+                    gitTextField.getText());
+        return this.saveOneContact(contact, type);
+    }
+     
+    // Method to save the current contact as VCard
+    private boolean saveOneContact(Contact contact, String type) throws IOException, ClassNotFoundException {
+        if (this.persistContact()){
+            String filePath = contact.getFirstName()+contact.getLastName();
+            switch (type) {
+                case "vcf":
+                    filePath = filePath+"."+type;
+                    ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
+                    vCardSerializer.save(filePath, contact);
+                    break;
+                case "json":
+                    filePath = filePath+"."+type;
+                    App.saveContactJson(contact, filePath);
+                    break;
+                default:
+                    break;
+            }
+            System.out.println("Current contact saved as : "+filePath);
+            return true;
+        }
+        return false;
     }
 
 

@@ -116,7 +116,7 @@
             <RowConstraints maxHeight="43.60001220703123" minHeight="5.999975585937477" prefHeight="35.400012207031295" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="buttonexportVCard" alignment="CENTER" mnemonicParsing="false" onAction="#saveOneContactAsVCard" prefHeight="40.0" prefWidth="150.0" text="Export VCard 📄" GridPane.rowIndex="3">
+            <Button fx:id="buttonExportJson" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Export JSON 📄" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -125,7 +125,7 @@
                   <String fx:value="btn" />
                </styleClass>
             </Button>
-            <Button fx:id="buttonExportJson" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Export Json 📇 " GridPane.rowIndex="4">
+            <Button fx:id="buttonExportVCard" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Export VCard 📇 " GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
