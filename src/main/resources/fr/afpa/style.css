@@ -134,6 +134,10 @@
     -fx-background-color: linear-gradient(to bottom, #9d1c1ccf, #4b0909cf);
 
 }
+.selectAllBtn {
+    -fx-background-color: #6D4646;
+
+}
 
 .jsonBtn {
     -fx-background-color: linear-gradient(to bottom, #a46868, #341f21);

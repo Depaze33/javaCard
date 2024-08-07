@@ -47,7 +47,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
                     ArrayList<Contact> contacts = (ArrayList<Contact>) in.readObject();
                     // sort contact list by last name
-                    contacts.sort((o1, o2) -> o1.getLastName().compareTo(o2.getLastName()));
+                    contacts.sort((o1, o2) -> o1.getFirstName().toLowerCase().compareTo(o2.getFirstName().toLowerCase()));
             return contacts;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error during deserialization: " + e.getMessage());

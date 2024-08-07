@@ -24,7 +24,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
-        // Fixtures.generateFixtures();
+        Fixtures.generateFixtures();
         launch();
     }
 

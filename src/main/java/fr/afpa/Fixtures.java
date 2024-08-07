@@ -16,7 +16,7 @@ public class Fixtures {
         String[] names = {"Aaron", "Caitlin", "Mazda", "Bianca", "Brunehilde", "Betsie", "Fabricio", "accessories", "accompaniments", "accouterments", "appliances", "appurtenances", "articles", "attachments", "baggage", "belongings", "contraptions", "contrivances", "devices", "equipage", "facilities", "fittings", "gadgets", "habiliments", "impedimenta", "materiel", "outfit", "paraphernalia", "provisions", "rig", "setup", "shebang", "stock", "store", "stuff", "tackle", "things", "tools", "trappings", "traps", "utensils"};
         String[] genders = {"M", "F", "NB"};
 
-        for (Integer i=0; i<10; i++){
+        for (Integer i=0; i<80; i++){
             String firstName = names[randInt(names.length-1)];
             String lastName = names[randInt(names.length-1)];
             String gender = genders[randInt(2)];

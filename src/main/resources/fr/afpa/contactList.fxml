@@ -3,7 +3,10 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,11 +16,20 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.ContactListController">
    <center>
-      <VBox fx:id="centerPane" spacing="20.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="centerPane" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" styleClass="titleBtn" text="CONTACTS" />
             <HBox fx:id="delExportBtns" spacing="7.0">
                <children>
+                  <Button mnemonicParsing="false">
+                     <graphic>
+                        <CheckBox fx:id="checkBoxAll" mnemonicParsing="false" onAction="#checkUncheckAllCheckBoxes" text="Select/Deselect" textFill="WHITE" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="roundedBtn" />
+                        <String fx:value="selectAllBtn" />
+                     </styleClass>
+                  </Button>
                   <Button fx:id="delAllBtn" disable="true" mnemonicParsing="false" onAction="#deleteAllSelected" text="Delete ❌">
                      <styleClass>
                         <String fx:value="roundedBtn" />
@@ -40,30 +52,42 @@
                      </styleClass>
                   </Button>
                </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </HBox>
-            <GridPane fx:id="gridContactList" hgap="5.0" vgap="5.0">
-              <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="180.0" prefWidth="180.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints />
-                <ColumnConstraints />
-                <ColumnConstraints />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="search" maxWidth="500.0" promptText="🔍 Search contact by name" GridPane.columnSpan="4">
-                     <GridPane.margin>
-                        <Insets bottom="20.0" />
-                     </GridPane.margin></TextField>
-               </children>
+            <ScrollPane fx:id="scrollPane">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
-            </GridPane>
+               <content>
+                  <AnchorPane fx:id="anchorPane">
+                     <children>
+                        <GridPane fx:id="gridContactList" hgap="5.0" layoutY="12.800003051757812" vgap="5.0">
+                          <columnConstraints>
+                              <ColumnConstraints />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints />
+                            <ColumnConstraints />
+                            <ColumnConstraints />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                          </rowConstraints>
+                           <children>
+                              <TextField fx:id="search" promptText="🔍 Search contact by name" GridPane.columnSpan="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
          </children>
          <BorderPane.margin>
             <Insets />

@@ -8,9 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ContactListController {
@@ -20,6 +23,12 @@ public class ContactListController {
 
     @FXML
     private VBox centerPane;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private HBox delExportBtns;
@@ -35,6 +44,9 @@ public class ContactListController {
 
     @FXML
     private Button vcfAllBtn;
+
+    @FXML
+    private CheckBox checkBoxAll;
 
     ArrayList<CheckBox> checkBoxes = new ArrayList<>();
 
@@ -80,23 +92,52 @@ public class ContactListController {
 
     @FXML
     public void initialize() throws ClassNotFoundException, IOException {
-
+        double scrollPaneWidth = this.scrollPane.getWidth();
+        this.gridContactList.setMaxWidth(scrollPaneWidth-30);
         
+        this.scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.resizeGrid((double) newVal-30);
+       });
+       
+       
+        // this.gridContactList.
+
+        this.gridContactList.getColumnConstraints().get(1).setMinWidth(100);
+        this.gridContactList.getColumnConstraints().get(2).setMinWidth(100);
+        this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
+        this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);;
+
         this.diplaySearchResult(App.deserializerMethod());
 
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 searchContacts(newValue);
             } catch (ClassNotFoundException | IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
 
     }
 
+    public void resizeGrid(double maxWidth){
+        maxWidth = (maxWidth < 900) ? maxWidth : 900; 
+        this.gridContactList.setMaxWidth(maxWidth);
+        this.gridContactList.setPrefWidth(maxWidth);
+    }
 
-
+    // method that switch all checkboxes select status 
+    @FXML public void checkUncheckAllCheckBoxes(ActionEvent event){
+        Boolean isSelected = false;
+        // If the global checkbox is checked,  
+        if(((CheckBox) event.getSource()).isSelected()){
+            isSelected = true;
+        }
+        // checl or uncheck all checkboxes
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setSelected(isSelected);
+        }
+        this.updateCheckBoxes();
+    } 
    
 
     public boolean delContact(String id, ActionEvent event) throws ClassNotFoundException, IOException {
@@ -127,6 +168,12 @@ public class ContactListController {
             if (checkBox.isSelected()) {
                 this.selectedIds.add(checkBox.getProperties().get("id").toString());
             }
+        }
+
+        if (this.selectedIds.size() == this.checkBoxes.size()){
+            this.checkBoxAll.setSelected(true);
+        }else{
+            this.checkBoxAll.setSelected(false);
         }
 
         // show btn in case there is at least 1 contact selected
@@ -212,6 +259,7 @@ public class ContactListController {
             Label name = new Label(contact.getFirstName() + " " + contact.getLastName().toUpperCase());
             name.getStyleClass().add("mainGridTextElement");
             name.getStyleClass().add("mainGridTextName");
+
             name.setOnMouseClicked(event -> {
                 try {
                     this.redirectToEdit(contact.getId());
