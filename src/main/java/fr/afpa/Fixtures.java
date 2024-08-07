@@ -35,7 +35,7 @@ public class Fixtures {
 
 
             contacts.add(new Contact(firstName, lastName, gender, LocalDate.now(),
-            "Mimi", phone.toString(), phone.toString(), firstName+lastName+"@gmail.com",
+            names[randInt(names.length-1)], phone.toString(), phone.toString(), firstName+lastName+"@gmail.com",
             randInt(100)+ " rue des "+ names[randInt(names.length-1)]+ " "+ zip +" "+names[randInt(names.length-1)], "https://github.com/"+firstName+lastName));
 
         }

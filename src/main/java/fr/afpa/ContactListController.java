@@ -95,13 +95,6 @@ public class ContactListController {
 
     }
 
-    @FXML
-    private void exportAllVcfSelected(ActionEvent event) throws ClassNotFoundException, IOException {
-
- 
-        
-   
-    }
 
 
    
