@@ -172,7 +172,6 @@ public class CreationContactController {
             });
             buttonExportJson.setOnAction(event -> {
                     try {
-                        System.out.println("test");
                         this.saveOneContact(contact, "json");
                     } catch (ClassNotFoundException | IOException e) {
                         e.printStackTrace();
@@ -377,8 +376,6 @@ public class CreationContactController {
     @FXML
     private void saveAllContactsAsVCard(ActionEvent event) throws IOException {
             ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
-            String filePath = "contacts.vcf";
-            Contact.V_CARD_SERIALIZER.saveList(filePath, contacts);
-            System.out.println("All contacts saved as VCard.");
+            Contact.V_CARD_SERIALIZER.saveList(Contact.SAVE_PATH, contacts);
     }
 }

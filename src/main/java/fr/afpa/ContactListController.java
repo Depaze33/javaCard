@@ -85,7 +85,7 @@ public class ContactListController {
 
         // serialize
         serializer.saveList(Contact.SAVE_PATH, contactsSerializerList);
-        System.out.println("contacts exported to \"contacts."+type+"\"");
+        System.out.println("contacts exported to \""+Contact.SAVE_PATH+type+"\"");
     }
 
     @FXML
@@ -146,7 +146,6 @@ public class ContactListController {
 
     // del contact from binary & from view
     public boolean delContacts(ArrayList<String> contactsIds) throws ClassNotFoundException, IOException {
-
         
         // get the contact object to del
         ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
@@ -192,7 +191,6 @@ public class ContactListController {
     public void deleteAllSelected() throws ClassNotFoundException, IOException {
         // iterate on all del buttons
         ArrayList <String> contactsToDel = new ArrayList<>();
-        System.out.println(delBtnsArray.size());
         // add each id of contacts to del 
         delBtnsArray.forEach(delBtn -> {
             if (!this.selectedIds.isEmpty() && this.selectedIds.contains(delBtn.getProperties().get("id").toString())) {

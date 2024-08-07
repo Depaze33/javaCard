@@ -155,7 +155,6 @@ public class Contact implements Serializable {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Pattern);
 
         return date.format(formatter) + this.firstName + this.lastName;
-
     }
 
     public static Contact findContactById(String id) throws ClassNotFoundException, IOException {
