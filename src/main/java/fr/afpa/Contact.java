@@ -7,10 +7,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.*;
+
+@JsonRootName(value = "contact")
 public class Contact implements Serializable {
     private String lastName;
     private String firstName;
     private String gender;
+
     private LocalDate birthDate;
     private String pseudo;
 
@@ -32,11 +36,9 @@ public class Contact implements Serializable {
         this.privateNumber = privateNumber;
         this.professionalNumber = professionalNumber;
         this.mailAdress = mailAdress;
-        // .matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$");
         this.postalAdress = postalAdress;
         this.github = github;
         this.id = this.generateID();
-        // Contact.count++;
 
     }
 
@@ -64,6 +66,7 @@ public class Contact implements Serializable {
         this.gender = gender;
     }
 
+    
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -172,3 +175,4 @@ public class Contact implements Serializable {
   
 
 }
+

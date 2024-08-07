@@ -24,7 +24,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
-        // Fixtures.generateFixtures();
+        Fixtures.generateFixtures();
         launch();
     }
 
@@ -39,21 +39,12 @@ public class App extends Application {
 
     public static void serializerMethode(ArrayList<Contact> contacts) {
         final ContactBinaryManager binaryManager = new ContactBinaryManager();
-        final ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();
 
         try {
             // Save contacts to binary file
             String binaryFilePath = "contacts.ser";
             binaryManager.saveList(binaryFilePath, contacts);
 
-            // Save contacts to VCard file
-            String vCardFilePath = "contacts.vcf";
-            vCardSerializer.saveList(vCardFilePath, contacts);
-
-            // Load contacts for verification
-            // ArrayList<Contact> loadedContacts = deserializerMethod();
-            // System.out.println("Contacts loaded for verification: " +
-            // loadedContacts.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,5 +87,11 @@ public class App extends Application {
     public static void serializerMethode(Contact contact, String filePath) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'serializerMethode'");
+    }
+
+    public static boolean saveContactJson(Contact contact, String filepath) throws IOException{
+        ContactJsonSerialiazer jsonSerializer = new ContactJsonSerialiazer();
+        jsonSerializer.save(filepath, contact);
+        return true;
     }
 }
