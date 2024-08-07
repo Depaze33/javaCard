@@ -47,7 +47,6 @@ public class ContactListController {
     @FXML
     public void exportAllJsonSelected() throws ClassNotFoundException, IOException {
         ArrayList<Contact> contactsSerializerList = new ArrayList<>();
-        ArrayList<Contact> contacts = App.deserializerMethod();
 
         for (CheckBox checkBox : this.checkBoxes) {
             if (checkBox.isSelected()) {
@@ -60,8 +59,6 @@ public class ContactListController {
         ContactJsonSerialiazer serializer = new ContactJsonSerialiazer();
         serializer.saveList("contacts.json", contactsSerializerList);
         System.out.println("contacts exported to \"contacts.json\"");
-        
-   
     }
 
     @FXML
