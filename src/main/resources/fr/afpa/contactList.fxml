@@ -61,7 +61,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <content>
-                  <AnchorPane fx:id="anchorPane">
+                  <AnchorPane fx:id="anchorPane" styleClass="scroll-pane">
                      <children>
                         <GridPane fx:id="gridContactList" hgap="5.0" layoutY="12.800003051757812" vgap="5.0">
                           <columnConstraints>
