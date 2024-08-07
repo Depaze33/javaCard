@@ -289,6 +289,8 @@ public class CreationContactController {
                 contacts.add(newContact);
                 // Save the updated list of contacts
                 Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+                CreationContactController.setId(newContact.getId());
+                App.setRoot("creationContact");
             }
             // if edit
             else {
@@ -306,10 +308,10 @@ public class CreationContactController {
                 contacts.set(contactPos, contactToEdit);
                 // Save the updated list of contacts
                 Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+                CreationContactController.setId(id);
+                App.setRoot("creationContact");
             }
 
-            App.setRoot("contactList");
-            CreationContactController.setId(null);
             return true;
         }
         return false;
@@ -332,7 +334,7 @@ public class CreationContactController {
         return true;
     }
 
-
+ // Export one contact to JSON or VCARD from new contact
     private boolean saveOneContact(String type) throws ClassNotFoundException, IOException{
         Contact contact = new Contact(
                     lastNameTextField.getText(),
@@ -348,7 +350,7 @@ public class CreationContactController {
         return this.saveOneContact(contact, type);
     }
      
-    // Method to save the current contact as VCard
+    // Export one contact to JSON or VCARD from contact object
     private boolean saveOneContact(Contact contact, String type) throws IOException, ClassNotFoundException {
         if (this.persistContact()){
             String filePath = contact.getFirstName()+contact.getLastName();

@@ -18,11 +18,6 @@ public class NavController {
     
     @FXML
     private Button navAddBtn;
-    
-
-    @FXML
-    public void initialize() {
-    }
 
     // redirect to the right view
     @FXML void redirectTo(ActionEvent event) throws IOException{

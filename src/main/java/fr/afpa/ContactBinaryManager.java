@@ -27,7 +27,7 @@ public class ContactBinaryManager<T> implements Serializer<Contact>, Deserialize
             throw e;
         }
     }
-//Methode Deserialize just one contact 
+    //Methode Deserialize just one contact 
     @Override
     public void save(String filePath, Contact objectToSave) {
         throw new UnsupportedOperationException("unsused method");
