@@ -107,7 +107,7 @@ public class ContactListController {
         this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
         this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);;
 
-        this.diplaySearchResult(App.deserializerMethod());
+        this.diplaySearchResult(Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH));
 
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
@@ -149,7 +149,7 @@ public class ContactListController {
         Integer rowId = GridPane.getRowIndex(delBtn);
 
         // get the contact object to del
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
         contacts.removeIf(c -> c.getId().equals(id));
 
         // update list view
@@ -215,7 +215,7 @@ public class ContactListController {
     public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException{
         // split words with whitespace
         String[] words = newValue.split(" ");
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
         this.contactsToShow.clear();
         // for each contact for each word in the search string
         for (Contact contact : contacts) {
@@ -238,7 +238,7 @@ public class ContactListController {
         }
         this.gridContactList.getChildren().clear();
         this.gridContactList.add(search, 0, 0);
-        contactsToShow = (search.getText().length() < 3 || search.getText().isBlank()) ? App.deserializerMethod() : contactsToShow;
+        contactsToShow = (search.getText().length() < 3 || search.getText().isBlank()) ? Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH) : contactsToShow;
         this.diplaySearchResult(this.contactsToShow);
         return true;
     }

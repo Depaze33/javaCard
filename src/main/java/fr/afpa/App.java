@@ -50,20 +50,6 @@ public class App extends Application {
         }
     }
 
-    // Method to deserialize contacts
-    public static ArrayList<Contact> deserializerMethod() throws IOException, ClassNotFoundException {
-        try {
-            ContactBinaryManager manager = new ContactBinaryManager();
-            String filePath = "contacts.ser";
-            ArrayList<Contact> loadedContacts = manager.loadList(filePath);
-
-            return loadedContacts;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
-
     // Save a single contact as VCard
     public static void saveOneContactVCard(Contact contact, String filePath) {
         ContactVCardSerializer vCardSerializer = new ContactVCardSerializer();

@@ -223,7 +223,7 @@ public class CreationContactController {
         String git = gitTextField.getText();
 
         // Load existing contacts
-        ArrayList<Contact> contacts = App.deserializerMethod();
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
 
         // Reset error message if validation passes
 
@@ -377,13 +377,9 @@ public class CreationContactController {
     // Method to save all contacts as VCard
     @FXML
     private void saveAllContactsAsVCard(ActionEvent event) {
-        try {
-            ArrayList<Contact> contacts = App.deserializerMethod();
+            ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
             String filePath = "contacts.vcf";
             App.saveContactsAsVCard(contacts, filePath);
             System.out.println("All contacts saved as VCard.");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }
