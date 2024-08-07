@@ -228,7 +228,7 @@ public class ContactListController {
                         this.contactsToShow.add(contact);
                     }                    
                 }
-                // remove contact if it doesnt match all keywords from the request
+                // remove contact if it doesnt match the last keyword from the request
                 else if (i > 0 && !(contact.getFirstName().toLowerCase().contains(word) || contact.getLastName().toLowerCase().contains(word))){
                     this.contactsToShow.remove(contact);
                 }
