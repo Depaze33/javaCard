@@ -57,6 +57,33 @@ public class ContactListController {
     ArrayList<Contact> contactsToShow = new ArrayList<>();
 
     @FXML
+    public void initialize() throws ClassNotFoundException, IOException {
+        double scrollPaneWidth = this.scrollPane.getWidth();
+        this.gridContactList.setMaxWidth(scrollPaneWidth-30);
+        
+        // responsive width adaption for the gridPane
+        this.scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.resizeGrid((double) newVal-30);
+       });    
+       
+        this.gridContactList.getColumnConstraints().get(1).setMinWidth(100);
+        this.gridContactList.getColumnConstraints().get(2).setMinWidth(100);
+        this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
+        this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);
+
+        this.diplaySearchResult(Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH));
+
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                searchContacts(newValue);
+            } catch (ClassNotFoundException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    @FXML
     public void exportAllJsonSelected() throws ClassNotFoundException, IOException {
         exportAllSelected("json");
     }
@@ -84,36 +111,31 @@ public class ContactListController {
         }
 
         // serialize
-        serializer.saveList(Contact.SAVE_PATH, contactsSerializerList);
-        System.out.println("contacts exported to \""+Contact.SAVE_PATH+type+"\"");
+        serializer.saveList("contacts."+type, contactsSerializerList);
+        System.out.println("contacts exported to \"Contacts."+type+"\"");
     }
 
-    @FXML
-    public void initialize() throws ClassNotFoundException, IOException {
-        double scrollPaneWidth = this.scrollPane.getWidth();
-        this.gridContactList.setMaxWidth(scrollPaneWidth-30);
-        
-        // responsive width adaption for the gridPane
-        this.scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.resizeGrid((double) newVal-30);
-       });    
-       
-        this.gridContactList.getColumnConstraints().get(1).setMinWidth(100);
-        this.gridContactList.getColumnConstraints().get(2).setMinWidth(100);
-        this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
-        this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);
-
-        this.diplaySearchResult(Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH));
-
-        search.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                searchContacts(newValue);
-            } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
-            }
-        });
-
+    public void exportOneJson(ActionEvent event) throws ClassNotFoundException, IOException {
+        this.exportOne("json", ((Button) event.getSource()).getProperties().get("id").toString());
     }
+
+    public void exportOneVcf(ActionEvent event) throws ClassNotFoundException, IOException {
+        this.exportOne("vcf", ((Button) event.getSource()).getProperties().get("id").toString());
+    }
+
+        // export the contacts in the argument type
+        public void exportOne(String type, String id) throws ClassNotFoundException, IOException {
+            Contact contactToExport = Contact.findContactById(id);
+            // get the right serializer
+            var serializer = (type.equals("json")) ? Contact.JSON_SERIALIAZER : Contact.V_CARD_SERIALIZER;
+            String filePath = contactToExport.getFirstName()+contactToExport.getLastName()+"."+type;
+    
+           
+    
+            // serialize
+            serializer.save(filePath, contactToExport);
+            System.out.println("contact exported to \""+filePath+"\"");
+        }
 
     // grid fits the scrollPane, MAX 900px
     public void resizeGrid(double maxWidth){
@@ -299,7 +321,16 @@ public class ContactListController {
             jsonBtn.getStyleClass().add("roundedBtn");
             jsonBtn.getStyleClass().add("btn");
             jsonBtn.getStyleClass().add("jsonBtn");
+            jsonBtn.getProperties().put("id", contact.getId());
+
             jsonBtn.setMinWidth(80);
+            jsonBtn.setOnAction(event -> {
+                try {
+                    this.exportOneJson(event);
+                } catch (ClassNotFoundException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
             gridContactList.add(jsonBtn, 5, row);
 
             Button vcfBtn = new Button("VCF 📇");
@@ -308,6 +339,14 @@ public class ContactListController {
             vcfBtn.getStyleClass().add("vcfBtn");
             vcfBtn.getProperties().put("id", contact.getId());
             vcfBtn.setMinWidth(70);
+            vcfBtn.setOnAction(event -> {
+                try {
+                    this.exportOneVcf(event);
+                } catch (ClassNotFoundException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
             gridContactList.add(vcfBtn, 6, row);
 
             row++;
