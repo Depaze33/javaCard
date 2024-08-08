@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -210,17 +212,32 @@ public class ContactListController {
     }
 
     // delete all selcted contact from the list + persist
-    public void deleteAllSelected() throws ClassNotFoundException, IOException {
-        // iterate on all del buttons
-        ArrayList <String> contactsToDel = new ArrayList<>();
-        // add each id of contacts to del 
-        delBtnsArray.forEach(delBtn -> {
-            if (!this.selectedIds.isEmpty() && this.selectedIds.contains(delBtn.getProperties().get("id").toString())) {
-                contactsToDel.add(delBtn.getProperties().get("id").toString());
+    @FXML
+public void deleteAllSelected() throws ClassNotFoundException, IOException {
+    // Create and configure the alert
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Deletion confirmation");
+    alert.setHeaderText("Are you sure you want to delete all selected contacts?");
+    alert.setContentText("This action is irreversible.");
+
+    // Show the alert and wait for the user's response
+    alert.showAndWait().ifPresent(response -> {
+        if (response == ButtonType.OK) {
+            // If the user confirms, proceed with deletion
+            ArrayList<String> contactsToDel = new ArrayList<>();
+            for (Button delBtn : delBtnsArray) {
+                if (!this.selectedIds.isEmpty() && this.selectedIds.contains(delBtn.getProperties().get("id").toString())) {
+                    contactsToDel.add(delBtn.getProperties().get("id").toString());
+                }
             }
-        });
-       this.delContacts(contactsToDel);
-    }
+            try {
+                this.delContacts(contactsToDel);
+            } catch (ClassNotFoundException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+    });
+}
 
     // redirect with the id
     public boolean redirectToEdit(String id) throws IOException {
@@ -308,12 +325,24 @@ public class ContactListController {
             delBtn.getStyleClass().add("delBtn");
             delBtnsArray.add(delBtn);
             delBtn.setOnAction(event -> {
-                try {
-                    this.delContact(contact.getId());
-                } catch (ClassNotFoundException | IOException e) {
-                    e.printStackTrace();
-                }
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deletion confirmation");
+                alert.setHeaderText("Are you sure you want to delete this contact?");
+                alert.setContentText("This action is irreversible.");
+            
+                // Show the alert and wait for the user's response
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            String id = delBtn.getProperties().get("id").toString(); // Correct reference to ID
+                            this.delContact(id); // Use the correct method name and pass the ID
+                        } catch (ClassNotFoundException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             });
+            
             delBtn.setMinWidth(90);
             gridContactList.add(delBtn, 4, row);
 
