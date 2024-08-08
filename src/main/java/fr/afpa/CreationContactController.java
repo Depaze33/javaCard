@@ -177,6 +177,15 @@ public class CreationContactController {
                         e.printStackTrace();
                     }
             });
+            buttonDelete.setOnAction(event -> {
+                try {
+                    this.delOneContact(id);
+                } catch (ClassNotFoundException | IOException e) {
+                    e.printStackTrace();
+                }
+           
+            });
+    
 
             // fill each field & disable them
             lastNameTextField.setText(contact.getLastName());
@@ -203,6 +212,17 @@ public class CreationContactController {
             buttonSave.setDisable(true);
         }
     }
+
+    private boolean delOneContact(String id) throws IOException, ClassNotFoundException {
+        
+        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
+        contacts.removeIf(contact -> contact.getId().equals(id));
+        Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+        CreationContactController.setId(null);
+        App.setRoot("contactList");
+        return true;
+    }
+
 
     // Methode save contact
     public boolean persistContact() throws ClassNotFoundException, IOException {
