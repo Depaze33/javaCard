@@ -380,4 +380,7 @@ public class CreationContactController {
             ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
             Contact.V_CARD_SERIALIZER.saveList(Contact.SAVE_PATH, contacts);
     }
+
+
+
 }

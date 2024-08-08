@@ -69,13 +69,13 @@
                               <Label contentDisplay="RIGHT" styleClass="star" text="*" />
                            </graphic></Label>
                         <Label fx:id="gitLinkLabel" minWidth="-Infinity" prefWidth="150.0" text="Git link" GridPane.rowIndex="9" />
-                        <TextField fx:id="lastNameTextField" prefWidth="378.0" promptText="Last Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" />
-                        <TextField fx:id="firstNameTextField" prefWidth="233.0" promptText="First Name" styleClass="textField" stylesheets="@style.css" text="test" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="pseudoTextField" promptText="pseudo" styleClass="textField" stylesheets="@style.css" text="pseudo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="personalNumberTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" text="0606060606" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="professionalTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" text="0606060606" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="mailAddressTextField" promptText="test@test.domain" styleClass="textField" stylesheets="@style.css" text="test@test.fr" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" text="44 rue test 55555 labas" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="lastNameTextField" prefWidth="378.0" promptText="Last Name" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" />
+                        <TextField fx:id="firstNameTextField" prefWidth="233.0" promptText="First Name" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="pseudoTextField" promptText="pseudo" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="personalNumberTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="professionalTextField" promptText="0606060606" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="mailAddressTextField" promptText="test@test.domain" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="postalAddressTextField" promptText="test" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="gitTextField" promptText="https://github.com/yourpseudo" styleClass="textField" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <ComboBox fx:id="comboBoxGender" prefWidth="300.0" promptText="Gender" styleClass="comboBoxGender" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <DatePicker fx:id="birthDayTextField" prefHeight="38.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
