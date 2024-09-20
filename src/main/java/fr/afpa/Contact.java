@@ -45,6 +45,21 @@ public class Contact implements Serializable {
         this.postalAdress = postalAdress;
         this.github = github;
         this.id = this.generateID();
+    }
+    public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo,
+            String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github, String id) {
+        this.generateID();
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.pseudo = pseudo;
+        this.privateNumber = privateNumber;
+        this.professionalNumber = professionalNumber;
+        this.mailAdress = mailAdress;
+        this.postalAdress = postalAdress;
+        this.github = github;
+        this.id = this.generateID();
 
     }
 

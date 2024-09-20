@@ -8,13 +8,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.*;
+
 public class App extends Application {
 
     private static Scene scene;
     public static Stage stage;
+    public Connection con = ConnectionPostgreSQL.getInstance();
 
     @Override
     public void start(Stage stage) throws IOException {
+
         this.stage = stage;
         scene = new Scene(loadFXML("contactList"));
 
@@ -23,7 +27,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
-        Fixtures.generateFixtures();
         launch();
     }
 

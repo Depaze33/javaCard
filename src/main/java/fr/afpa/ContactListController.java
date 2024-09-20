@@ -72,8 +72,8 @@ public class ContactListController {
         this.gridContactList.getColumnConstraints().get(2).setMinWidth(100);
         this.gridContactList.getColumnConstraints().get(3).setMinWidth(100  );
         this.gridContactList.getColumnConstraints().get(3).setHgrow(Priority.SOMETIMES);
-
-        this.diplaySearchResult(Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH));
+        DAO<Contact> contactDao = new ContactDAO();
+        this.diplaySearchResult(contactDao.findAll());
 
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
@@ -125,19 +125,20 @@ public class ContactListController {
         this.exportOne("vcf", ((Button) event.getSource()).getProperties().get("id").toString());
     }
 
-        // export the contacts in the argument type
-        public void exportOne(String type, String id) throws ClassNotFoundException, IOException {
-            Contact contactToExport = Contact.findContactById(id);
-            // get the right serializer
-            var serializer = (type.equals("json")) ? Contact.JSON_SERIALIAZER : Contact.V_CARD_SERIALIZER;
-            String filePath = contactToExport.getFirstName()+contactToExport.getLastName()+"."+type;
-    
-           
-    
-            // serialize
-            serializer.save(filePath, contactToExport);
-            System.out.println("contact exported to \""+filePath+"\"");
-        }
+    // export the contacts in the argument type
+    public void exportOne(String type, String id) throws ClassNotFoundException, IOException {
+        DAO<Contact> contactDao = new ContactDAO();
+        Contact contactToExport = contactDao.find(id);
+        // get the right serializer
+        var serializer = (type.equals("json")) ? Contact.JSON_SERIALIAZER : Contact.V_CARD_SERIALIZER;
+        String filePath = contactToExport.getFirstName()+contactToExport.getLastName()+"."+type;
+
+        
+
+        // serialize
+        serializer.save(filePath, contactToExport);
+        System.out.println("contact exported to \""+filePath+"\"");
+    }
 
     // grid fits the scrollPane, MAX 900px
     public void resizeGrid(double maxWidth){
