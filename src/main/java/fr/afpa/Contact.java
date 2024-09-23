@@ -33,7 +33,6 @@ public class Contact implements Serializable {
 
     public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo,
             String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github) {
-        this.generateID();
         this.lastName = lastName;
         this.firstName = firstName;
         this.gender = gender;
@@ -44,11 +43,9 @@ public class Contact implements Serializable {
         this.mailAdress = mailAdress;
         this.postalAdress = postalAdress;
         this.github = github;
-        this.id = this.generateID();
     }
     public Contact(String lastName, String firstName, String gender, LocalDate birthDate, String pseudo,
             String privateNumber, String professionalNumber, String mailAdress, String postalAdress, String github, String id) {
-        this.generateID();
         this.lastName = lastName;
         this.firstName = firstName;
         this.gender = gender;
@@ -59,7 +56,7 @@ public class Contact implements Serializable {
         this.mailAdress = mailAdress;
         this.postalAdress = postalAdress;
         this.github = github;
-        this.id = this.generateID();
+        this.id = id;
 
     }
 

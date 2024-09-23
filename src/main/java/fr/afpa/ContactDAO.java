@@ -12,7 +12,41 @@ public class ContactDAO extends DAO<Contact> {
         return null;
     }
 
-    public Contact find(long id) {
+    public Contact find(String id) {
+
+        try{
+
+            Statement stm = this.con.createStatement();
+
+            ResultSet result = stm.executeQuery("SELECT * FROM contact WHERE id="+id);
+
+
+
+            while(result.next()){
+                String first = result.getString("first_name");
+                String last = result.getString("last_name");
+                String gender = result.getString("gender");
+                LocalDate birthdate = result.getDate("birth_date").toLocalDate();
+                String pseudo = result.getString("pseudo");
+                String privateNumber = result.getString("personal_phone_number");
+                String professionalNumber = result.getString("professional_phone_number");
+                String mailAdress = result.getString("email");
+                String postalAdress = result.getString("address");
+                String github = result.getString("git_link");
+    
+                Contact contact = new Contact(last, first, gender, birthdate, pseudo, privateNumber, professionalNumber, mailAdress, postalAdress, github, id);
+    
+                
+                stm.close();
+                result.close();
+                System.out.println(contact);
+                return contact;
+            }
+        }
+        catch (Exception e){
+            System.err.println("Error");
+            System.err.println(e.getMessage());
+        }
 
         return null;
 
@@ -49,7 +83,6 @@ public class ContactDAO extends DAO<Contact> {
             
             stm.close();
             result.close();
-            con.close();
             return contacts;
         }
         catch (Exception e){
