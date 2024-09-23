@@ -101,13 +101,14 @@ public class ContactListController {
         // get the right serializer
         var serializer = (type.equals("json")) ? Contact.JSON_SERIALIAZER : Contact.V_CARD_SERIALIZER;
         ArrayList<Contact> contactsSerializerList = new ArrayList<>();
+        DAO<Contact> contactDao = new ContactDAO();
 
 
         // get the selected contacts
         for (CheckBox checkBox : this.checkBoxes) {
             if (checkBox.isSelected()) {
                 String id = (String) checkBox.getProperties().get("id");
-                Contact contact = Contact.findContactById(id);
+                Contact contact = contactDao.find(id);
                 contactsSerializerList.add(contact);
             }
         }
@@ -169,21 +170,20 @@ public class ContactListController {
         return this.delContacts(contactsIds);
     }
 
-    // del contact from binary & from view
+    // del contact from db & from view
     public boolean delContacts(ArrayList<String> contactsIds) throws ClassNotFoundException, IOException {
         
-        // get the contact object to del
-        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
-        contacts.removeIf(contact -> contactsIds.contains(contact.getId()));
-        this.checkBoxes.removeIf(checkbox -> contactsIds.contains(checkbox.getProperties().get("id")));
-
+        // delete contact(s)
+        DAO<Contact> contactDao = new ContactDAO();
+        for (String id : contactsIds) {
+            contactDao.delete(id);
+        }
 
         this.selectedIds = new ArrayList<>();
         // update list view
         this.gridContactList.getChildren().clear();
         this.gridContactList.add(search, 0, 0);
-        this.diplaySearchResult(contacts);
-        Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+        this.diplaySearchResult(contactDao.findAll());
         this.updateCheckBoxes();
         return true;
     }
@@ -253,7 +253,8 @@ public void deleteAllSelected() throws ClassNotFoundException, IOException {
     public boolean searchContacts(String newValue) throws ClassNotFoundException, IOException{
         // split words with whitespace
         String[] words = newValue.split(" ");
-        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
+        DAO<Contact> contactDao = new ContactDAO();
+        ArrayList<Contact> contacts = contactDao.findAll();
         this.contactsToShow.clear();
         // for each contact for each word in the search string
         for (Contact contact : contacts) {
@@ -276,7 +277,7 @@ public void deleteAllSelected() throws ClassNotFoundException, IOException {
         }
         this.gridContactList.getChildren().clear();
         this.gridContactList.add(search, 0, 0);
-        contactsToShow = (search.getText().length() < 3 || search.getText().isBlank()) ? Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH) : contactsToShow;
+        contactsToShow = (search.getText().length() < 3 || search.getText().isBlank()) ? contactDao.findAll() : contactsToShow;
         this.diplaySearchResult(this.contactsToShow);
         return true;
     }
