@@ -42,6 +42,7 @@ public class ContactDAO extends DAO<Contact> {
 
             int fieldsCount = 0;
             ArrayList<String> finalValues = new ArrayList<>();
+            ArrayList<String> finalFields = new ArrayList<>();
             for (int i = 0; i < fields.length; i++) {
                 if (values[i] != null && !values[i].isEmpty()){
                     if (fieldsQuery.length() > 2) {
@@ -51,6 +52,7 @@ public class ContactDAO extends DAO<Contact> {
                     fieldsQuery.append(fields[i]);
                     prepareQuery.append("?");
                     fieldsCount++;
+                    finalFields.add(fields[i]);
                     finalValues.add(values[i]);
                 }
             }
@@ -63,7 +65,12 @@ public class ContactDAO extends DAO<Contact> {
                     "INSERT INTO contact " + fieldsQuery.toString() + " VALUES " + prepareQuery.toString() + ";", Statement.RETURN_GENERATED_KEYS);
 
             for (int i = 1; i <= fieldsCount; i++) {
-                stm.setString(i, finalValues.get(i - 1));
+                if ("birth_date".equals(finalFields.get(i-1))){
+                    stm.setDate(i, java.sql.Date.valueOf(finalValues.get(i - 1)));
+                }
+                else{
+                    stm.setString(i, String.valueOf(finalValues.get(i - 1)));
+                }  
             }
 
 
