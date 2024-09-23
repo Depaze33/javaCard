@@ -166,7 +166,8 @@ public class CreationContactController {
             buttonEdit.setVisible(true);
             buttonDelete.setVisible(true);
             // get the contact obj thx to the id
-            Contact contact = Contact.findContactById(id);
+            DAO<Contact> contactDao = new ContactDAO();
+            Contact contact = contactDao.find(id);
             buttonExportVCard.setOnAction(event -> {
                 try {
                     this.saveOneContact(contact, "vcf");
@@ -181,24 +182,23 @@ public class CreationContactController {
                     e.printStackTrace();
                 }
             });
-           buttonDelete.setOnAction(event -> {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Deletion confirmation");
-    alert.setHeaderText("Are you sure you want to delete this contact?");
-    alert.setContentText("This action is irreversible.");
+            buttonDelete.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Deletion confirmation");
+                alert.setHeaderText("Are you sure you want to delete this contact?");
+                alert.setContentText("This action is irreversible.");
 
-    // Affiche l'alerte et attends la réponse de l'utilisateur
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            try {
-                this.delOneContact(id); // Supprime le contact seulement si la confirmation est positive
-            } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
-            }
-        }
-    });
-});
-
+                // Affiche l'alerte et attends la réponse de l'utilisateur
+                alert.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            this.delOneContact(id); // Supprime le contact seulement si la confirmation est positive
+                        } catch (ClassNotFoundException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            });
 
             // fill each field & disable them
             lastNameTextField.setText(contact.getLastName());
@@ -227,10 +227,8 @@ public class CreationContactController {
     }
 
     private boolean delOneContact(String id) throws IOException, ClassNotFoundException {
-
-        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
-        contacts.removeIf(contact -> contact.getId().equals(id));
-        Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+        DAO<Contact> contactDao = new ContactDAO();
+        contactDao.delete(id);
         CreationContactController.setId(null);
         App.setRoot("contactList");
         return true;
@@ -253,9 +251,6 @@ public class CreationContactController {
         String postalAddress = postalAddressTextField.getText();
         String git = gitTextField.getText();
 
-        // Load existing contacts
-        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
-
         // Reset error message if validation passes
 
         boolean error = false;
@@ -277,15 +272,16 @@ public class CreationContactController {
             error = true;
         }
 
-        if (!professionalNumber.trim().isEmpty() && !professionalNumber.matches(
+        if (professionalNumber != null && !professionalNumber.isEmpty() && !professionalNumber.matches(
                 "^(\\+?\\d{1,3}[-.\\s]?)?\\(?\\d{1,4}\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$")) {
             proffesionalPhoneLabel.getStyleClass().add("labelRequired");
             error = true;
         }
 
         if (mailAddress.trim().isEmpty() &&
-                !mailAddress.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
-                    
+                !mailAddress.matches(
+                        "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+
             mailLabel.getStyleClass().add("labelRequired");
             error = true;
         }
@@ -297,7 +293,7 @@ public class CreationContactController {
             error = true;
         }
 
-        if (!git.trim().isEmpty() && !git.matches(
+        if (git!=null && !git.trim().isEmpty() && !git.matches(
                 "^https?://(github\\.com|gitlab\\.com)/([a-zA-Z0-9._-]+)$")) {
             gitLinkLabel.getStyleClass().add("labelRequired");
             error = true;
@@ -317,17 +313,18 @@ public class CreationContactController {
                         mailAddress,
                         postalAddress,
                         git);
-
                 // Add the new contact to the list
-                contacts.add(newContact);
+                DAO<Contact> contactDao = new ContactDAO();
+                newContact = contactDao.create(newContact);
                 // Save the updated list of contacts
-                Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
                 CreationContactController.setId(newContact.getId());
                 App.setRoot("creationContact");
             }
             // if edit
             else {
-                Contact contactToEdit = Contact.findContactById(id);
+                DAO<Contact> contactDao = new ContactDAO();
+                Contact contactToEdit = contactDao.find(id);
+                System.out.println(lastName);
                 contactToEdit.setFirstName(firstName);
                 contactToEdit.setLastName(lastName);
                 contactToEdit.setBirthDate(birthDate);
@@ -337,10 +334,11 @@ public class CreationContactController {
                 contactToEdit.setMailAdress(mailAddress);
                 contactToEdit.setPostalAdress(postalAddress);
                 contactToEdit.setGithub(git);
-                Integer contactPos = Contact.findContactPosById(id);
-                contacts.set(contactPos, contactToEdit);
-                // Save the updated list of contacts
-                Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
+                contactToEdit = contactDao.update(contactToEdit);
+                // Integer contactPos = Contact.findContactPosById(id);
+                // contacts.set(contactPos, contactToEdit);
+                // // Save the updated list of contacts
+                // Contact.BINARY_MANAGER.saveList(Contact.SAVE_PATH, contacts);
                 CreationContactController.setId(id);
                 App.setRoot("creationContact");
             }
@@ -381,7 +379,7 @@ public class CreationContactController {
                 postalAddressTextField.getText(),
                 gitTextField.getText());
         return this.saveOneContact(contact, type);
-    
+
     }
 
     // Export one contact to JSON or VCARD from contact object
@@ -405,17 +403,17 @@ public class CreationContactController {
         }
         return false;
 
-
         // Alert
-       
+
         // action event
-        
+
     }
 
     // Method to save all contacts as VCard
     @FXML
     private void saveAllContactsAsVCard(ActionEvent event) throws IOException {
-        ArrayList<Contact> contacts = Contact.BINARY_MANAGER.loadList(Contact.SAVE_PATH);
+        DAO<Contact> contactDao = new ContactDAO();
+        ArrayList<Contact> contacts = contactDao.findAll();
         Contact.V_CARD_SERIALIZER.saveList(Contact.SAVE_PATH, contacts);
     }
 
